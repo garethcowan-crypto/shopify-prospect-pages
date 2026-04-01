@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Profillment × Shopify Plus — Hospitality B2B Commerce</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #008060;
+    --green-light: #00a674;
+    --accent: #00d4a1;
+    --green-bg: #e6f4f0;
+    --dark: #0a0a0a;
+    --surface: #111827;
+    --white: #ffffff;
+    --gray-400: #9ca3af;
+    --gray-600: #4b5563;
+    --gray-900: #111827;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: var(--white); line-height: 1.6; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 56px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: var(--white); }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .nav-pills { display: flex; gap: 4px; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--gray-400); cursor: pointer; transition: all 0.2s; border: 1px solid transparent; text-decoration: none; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+  .nav-pill.active { color: var(--accent); background: rgba(0,212,161,0.1); border-color: rgba(0,212,161,0.3); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--green-light); }
+
+  .progress-bar { position: fixed; top: 56px; left: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--accent)); z-index: 99; width: 0%; transition: width 0.1s; }
+
+  .slide { min-height: 100vh; padding: 100px 60px 60px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .slide-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,128,96,0.3), transparent); }
+
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .section-title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; color: var(--white); margin-bottom: 8px; }
+  .section-sub { font-size: 15px; color: var(--gray-400); margin-bottom: 40px; }
+
+  /* Hero */
+  #slide-1 { background: linear-gradient(135deg, #0a0f0a 0%, #0d1a14 40%, #0a1a2e 100%); padding: 120px 80px 80px; align-items: flex-start; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; width: 100%; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero-title { font-size: clamp(36px, 4.5vw, 54px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; color: var(--white); margin-bottom: 16px; }
+  .hero-title span { background: linear-gradient(135deg, #00d4a1, #00a674); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 17px; color: var(--gray-400); margin-bottom: 40px; line-height: 1.7; }
+  .hero-meta { display: flex; align-items: center; gap: 16px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .hero-avatar { width: 44px; height: 44px; background: linear-gradient(135deg, var(--green), #00d4a1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+  .hero-meta-name { font-weight: 600; color: var(--white); }
+  .hero-meta-role { color: var(--gray-400); font-size: 12px; }
+  .hero-right { display: flex; flex-direction: column; gap: 16px; }
+  .hero-stat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 22px 26px; transition: all 0.3s; }
+  .hero-stat-card:hover { background: rgba(0,128,96,0.08); border-color: rgba(0,128,96,0.3); transform: translateX(4px); }
+  .hero-stat-card .stat-number { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+  .hero-stat-card .stat-label { font-size: 13px; color: var(--gray-400); }
+
+  /* Challenges */
+  #slide-2 { background: #0a0a0a; padding: 100px 60px; justify-content: flex-start; }
+  .challenge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .challenge-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; transition: all 0.3s; }
+  .challenge-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.15); }
+  .challenge-icon { font-size: 24px; margin-bottom: 14px; }
+  .challenge-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .challenge-desc { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
+  .challenge-desc strong { color: #fca5a5; }
+
+  /* Solutions */
+  #slide-3 { background: linear-gradient(160deg, #050d0a 0%, #0a0a0a 100%); padding: 100px 60px; justify-content: flex-start; }
+  .solution-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .solution-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .solution-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--accent)); opacity: 0; transition: opacity 0.3s; }
+  .solution-card:hover { background: rgba(0,128,96,0.06); border-color: rgba(0,128,96,0.25); }
+  .solution-card:hover::before { opacity: 1; }
+  .solution-badge { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-bottom: 12px; }
+  .badge-challenge { background: rgba(185,28,28,0.15); color: #fca5a5; }
+  .badge-solution { background: rgba(0,128,96,0.2); color: var(--accent); }
+  .solution-title { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .solution-desc { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
+  .solution-desc span { color: var(--accent); font-weight: 600; }
+
+  /* Why Shopify */
+  #slide-4 { background: #0a0a0a; padding: 100px 60px; justify-content: flex-start; }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+  .why-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 24px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .why-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--green), var(--accent)); opacity: 0; transition: opacity 0.3s; }
+  .why-card:hover { background: rgba(0,128,96,0.06); border-color: rgba(0,128,96,0.25); transform: translateY(-2px); }
+  .why-card:hover::before { opacity: 1; }
+  .why-card-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+  .why-card-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .why-card-desc { font-size: 12.5px; color: var(--gray-400); line-height: 1.6; }
+  .why-card-desc strong { color: var(--accent); font-weight: 600; }
+
+  .footer-cta { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(0,128,96,0.15), rgba(0,212,161,0.08)); border: 1px solid rgba(0,128,96,0.3); border-radius: 20px; padding: 28px 36px; }
+  .footer-cta-title { font-size: 20px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+  .footer-cta-sub { font-size: 14px; color: var(--gray-400); }
+  .footer-cta-sub a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .footer-cta-sub a:hover { text-decoration: underline; }
+  .footer-cta-right { display: flex; gap: 12px; }
+  .btn-primary { background: var(--green); color: white; padding: 12px 26px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+  .btn-ghost { background: rgba(255,255,255,0.06); color: #e5e7eb; padding: 12px 26px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); transition: all 0.2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  @media (max-width: 900px) {
+    .hero-grid, .solution-grid, .why-grid, .challenge-grid { grid-template-columns: 1fr; }
+    .slide { padding: 90px 24px 40px; }
+    nav { padding: 0 20px; }
+    .nav-pills { display: none; }
+    .footer-cta { flex-direction: column; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div>Profillment &times; Shopify Plus</div>
+  <div class="nav-pills">
+    <a href="#slide-1" class="nav-pill active">Overview</a>
+    <a href="#slide-2" class="nav-pill">Challenges</a>
+    <a href="#slide-3" class="nav-pill">Solutions</a>
+    <a href="#slide-4" class="nav-pill">Why Shopify</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com?subject=Profillment%20-%20Shopify%20Plus%20Follow%20Up" class="nav-cta">Reconnect</a>
+</nav>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<section class="slide" id="slide-1">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Hospitality B2B Commerce &middot; Shopify Plus</div>
+      <h1 class="hero-title">Self-service ordering for <span>hospitality</span>, built for scale</h1>
+      <p class="hero-sub">Profillment has served the hotel industry since 1989. Shopify Plus gives your hotels a modern, self-service ordering experience &mdash; with the approval workflows, custom catalogs, and ERP integration you need.</p>
+      <div class="hero-meta" style="margin-top:36px;">
+        <div class="hero-avatar">GC</div>
+        <div>
+          <div class="hero-meta-name">Gareth Cowan</div>
+          <div class="hero-meta-role">Shopify Plus &middot; gareth.cowan@shopify.com &middot; 778-917-9299</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-card">
+        <div class="stat-number">$2,300/mo</div>
+        <div class="stat-label">Shopify Plus &mdash; flat rate. B2B + D2C on one platform. No scaling fees at your volume.</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">42+</div>
+        <div class="stat-label">Native B2B features &mdash; company accounts, custom catalogs, payment terms, approval workflows</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">2&ndash;6 mo</div>
+        <div class="stat-label">Estimated go-live &mdash; replace your homegrown site with a scalable, managed platform</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">50%</div>
+        <div class="stat-label">Higher checkout conversion with Shop Pay &mdash; 100M+ saved buyer profiles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<!-- CHALLENGES -->
+<section class="slide" id="slide-2">
+  <div class="section-label">Current Challenges</div>
+  <h2 class="section-title">What We Heard from Your Team</h2>
+  <p class="section-sub">From our discovery with Tim, Andrew, and Emily &mdash; these are the problems holding Profillment back.</p>
+  <div class="challenge-grid">
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F6D1;</div>
+      <div class="challenge-title">No Purchase Approval Workflows</div>
+      <div class="challenge-desc">Hotel GMs place orders that need regional supervisor approval. Orders over $3,000 need a third-tier approver. <strong>Your current homegrown site can't do this &mdash; and it's your #1 requirement.</strong></div>
+    </div>
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F3E8;</div>
+      <div class="challenge-title">No Custom Catalogs per Property</div>
+      <div class="challenge-desc">Each hotel property needs to see only the items with the correct finishes and designs for their location. <strong>Today this is manual or non-existent &mdash; leading to wrong orders and returns.</strong></div>
+    </div>
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F4E6;</div>
+      <div class="challenge-title">Split Fulfillment Is Complex</div>
+      <div class="challenge-desc">Orders split between your warehouse and vendor drop-ship. Acumatica handles routing, but <strong>your homegrown site doesn't support split fulfillment natively.</strong></div>
+    </div>
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F4B0;</div>
+      <div class="challenge-title">Can't Process Payments Online</div>
+      <div class="challenge-desc">Freight costs are estimated, not exact &mdash; so you <strong>don't process payments on the website at all.</strong> Invoices are sent separately after shipping. This creates friction and manual work.</div>
+    </div>
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F504;</div>
+      <div class="challenge-title">Operational Silos</div>
+      <div class="challenge-desc">Ecommerce, inventory, shipping, and ERP are <strong>disconnected systems.</strong> Your small team spends too much time bridging gaps manually instead of growing the business.</div>
+    </div>
+    <div class="challenge-card">
+      <div class="challenge-icon">&#x1F4C9;</div>
+      <div class="challenge-title">Homegrown Site Can't Scale</div>
+      <div class="challenge-desc">Your current platform was built for where you were, not where you're going. <strong>Scaling the reordering business and deploying self-service requires a modern foundation.</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<!-- SOLUTIONS -->
+<section class="slide" id="slide-3">
+  <div class="section-label">How Shopify Plus Solves It</div>
+  <h2 class="section-title">Your Challenges, Mapped to Solutions</h2>
+  <p class="section-sub">Every requirement from your discovery &mdash; addressed.</p>
+  <div class="solution-grid">
+    <div class="solution-card">
+      <span class="solution-badge badge-challenge">YOUR CHALLENGE</span>
+      <div class="solution-title">Tiered Purchase Approval Workflows</div>
+      <div class="solution-desc">Hotel GMs need supervisor approval. Orders &gt;$3K need third-tier approval. Email notifications to reviewers who can approve, deny, or edit.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-solution">SHOPIFY PLUS SOLUTION</span>
+      <div class="solution-title">Approovly + Shopify B2B</div>
+      <div class="solution-desc"><span>Native B2B company accounts</span> combined with the Approovly app ($19&ndash;$59/mo) enables multi-tier approval workflows with email notifications, approve/deny from admin, and custom order tagging. Configurable per company.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-challenge">YOUR CHALLENGE</span>
+      <div class="solution-title">Custom Catalogs per Hotel Property</div>
+      <div class="solution-desc">Each property should only see items with correct finishes, designs, and brands for their specific location.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-solution">SHOPIFY PLUS SOLUTION</span>
+      <div class="solution-title">B2B Catalogs &mdash; Up to 10,000</div>
+      <div class="solution-desc"><span>Publish specific products and pricing per company location.</span> Each hotel property gets their own catalog with only the products they should see. Managed centrally, experienced locally.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-challenge">YOUR CHALLENGE</span>
+      <div class="solution-title">Drop-Ship + Warehouse Split Fulfillment</div>
+      <div class="solution-desc">Orders split between your warehouse and vendor drop-ship items. Acumatica handles routing.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-solution">SHOPIFY PLUS SOLUTION</span>
+      <div class="solution-title">Acumatica Integration + Multi-Location</div>
+      <div class="solution-desc"><span>Acumatica has a native Shopify connector</span> that supports split fulfillment routing. Orders flow to Acumatica, which routes to warehouse or vendor based on your existing logic. Multi-location inventory is native.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-challenge">YOUR CHALLENGE</span>
+      <div class="solution-title">Freight Cost Estimation &mdash; Can't Charge Online</div>
+      <div class="solution-desc">Freight is estimated, not exact. You invoice separately after shipping. No online payment processing.</div>
+    </div>
+    <div class="solution-card">
+      <span class="solution-badge badge-solution">SHOPIFY PLUS SOLUTION</span>
+      <div class="solution-title">Net Terms + Free Freight Threshold</div>
+      <div class="solution-desc"><span>Native payment terms (Net 30/60/90)</span> let hotels order on account without credit cards. Offer free freight above a $2K minimum to simplify pricing. Invoicing handled through Acumatica integration.</div>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<!-- WHY SHOPIFY -->
+<section class="slide" id="slide-4">
+  <div class="section-label">Why Shopify Plus</div>
+  <h2 class="section-title">Built for Hospitality B2B at Scale</h2>
+  <p class="section-sub">Everything Profillment needs to scale self-service ordering &mdash; on one platform.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F3E2;</span>
+      <div class="why-card-title">Company Accounts for Every Hotel</div>
+      <div class="why-card-desc">Each hotel chain gets a company account. Each property gets a location. <strong>Custom catalogs, pricing, and payment terms per location.</strong></div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x2705;</span>
+      <div class="why-card-title">Purchase Approval Workflows</div>
+      <div class="why-card-desc">GM orders &rarr; supervisor approval &rarr; big purchase escalation. <strong>Email notifications, approve/deny/edit.</strong> Via Approovly app.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F4CB;</span>
+      <div class="why-card-title">Custom Catalogs (10,000+)</div>
+      <div class="why-card-desc">Each property sees only their finishes, designs, and brands. <strong>No wrong orders. No returns.</strong></div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F4B3;</span>
+      <div class="why-card-title">Payment Terms (Net 30/60/90)</div>
+      <div class="why-card-desc">Hotels order on account. <strong>No credit cards required.</strong> Invoice through Acumatica.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F517;</span>
+      <div class="why-card-title">Acumatica Integration</div>
+      <div class="why-card-desc">Native Shopify connector. <strong>Bidirectional sync</strong> &mdash; orders, inventory, customers, fulfillment routing.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F680;</span>
+      <div class="why-card-title">Self-Service at Scale</div>
+      <div class="why-card-desc">Hotels reorder in seconds. Your team focuses on growth, not order entry. <strong>Eliminate operational silos.</strong></div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F4B0;</span>
+      <div class="why-card-title">$2,300/mo &mdash; All-In</div>
+      <div class="why-card-desc">B2B + future D2C on one platform. <strong>No hosting, no patches, no infrastructure.</strong> Your volume is well under the scaling threshold.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x26A1;</span>
+      <div class="why-card-title">2&ndash;6 Month Go-Live</div>
+      <div class="why-card-desc">Replace your homegrown site with an <strong>enterprise-grade, managed platform</strong> in months, not years.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-card-icon">&#x1F30D;</span>
+      <div class="why-card-title">Future D2C Ready</div>
+      <div class="why-card-desc">When you're ready to sell direct to consumers, <strong>it's already built in.</strong> Same platform, same license, no extra cost.</div>
+    </div>
+  </div>
+
+  <div class="footer-cta">
+    <div>
+      <div class="footer-cta-title">Ready to pick up where we left off?</div>
+      <div class="footer-cta-sub">We had great momentum during discovery. Let's reconnect and show you the platform in action. <a href="mailto:gareth.cowan@shopify.com">gareth.cowan@shopify.com</a> &middot; 778-917-9299</div>
+    </div>
+    <div class="footer-cta-right">
+      <a href="mailto:gareth.cowan@shopify.com?subject=Profillment%20-%20Let%27s%20Reconnect" class="btn-ghost">Ask a Question</a>
+      <a href="mailto:gareth.cowan@shopify.com?subject=Profillment%20-%20Schedule%20Demo" class="btn-primary">Schedule a Demo &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
+  });
+  const sections = document.querySelectorAll('.slide');
+  const navPills = document.querySelectorAll('.nav-pill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navPills.forEach(pill => pill.classList.remove('active'));
+        const index = Array.from(sections).indexOf(entry.target) + 1;
+        const activeLink = document.querySelector('.nav-pill[href="#slide-' + index + '"]');
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
