@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Upper Deck × Shopify Plus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--green:#008060;--accent:#00d4a1;--dark:#0a0a0a;--white:#fff;--gray-400:#9ca3af;--gray-900:#111827}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:#0d0d0d;color:var(--white);line-height:1.6}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+  .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--white)}
+  .nav-logo-icon{width:28px;height:28px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px}
+  .nav-pills{display:flex;gap:4px}
+  .nav-pill{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;color:var(--gray-400);text-decoration:none;transition:all 0.2s;border:1px solid transparent}
+  .nav-pill:hover{color:var(--white);background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1)}
+  .nav-pill.active{color:var(--accent);background:rgba(0,212,161,0.1);border-color:rgba(0,212,161,0.3)}
+  .nav-cta{background:var(--green);color:white;padding:7px 18px;border-radius:20px;font-size:12px;font-weight:600;text-decoration:none;transition:all 0.2s}
+  .progress-bar{position:fixed;top:56px;left:0;height:2px;background:linear-gradient(90deg,var(--green),var(--accent));z-index:99;width:0%;transition:width 0.1s}
+  .slide{min-height:100vh;padding:100px 60px 60px;display:flex;flex-direction:column;justify-content:center}
+  .slide-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,128,96,0.3),transparent)}
+  .section-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+  .section-title{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+  .section-sub{font-size:15px;color:var(--gray-400);margin-bottom:40px}
+
+  #slide-1{background:linear-gradient(135deg,#0a0f0a 0%,#0d1a14 40%,#0a1a2e 100%);padding:120px 80px 80px;align-items:flex-start}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;width:100%}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,128,96,0.15);border:1px solid rgba(0,128,96,0.4);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:28px}
+  .hero-title{font-size:clamp(36px,4.5vw,54px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:16px}
+  .hero-title span{background:linear-gradient(135deg,#00d4a1,#00a674);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-sub{font-size:17px;color:var(--gray-400);margin-bottom:40px;line-height:1.7}
+  .hero-meta{display:flex;align-items:center;gap:16px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08)}
+  .hero-avatar{width:44px;height:44px;background:linear-gradient(135deg,var(--green),#00d4a1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
+  .hero-meta-name{font-weight:600}
+  .hero-meta-role{color:var(--gray-400);font-size:12px}
+  .hero-right{display:flex;flex-direction:column;gap:16px}
+  .hero-stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:22px 26px;transition:all 0.3s}
+  .hero-stat-card:hover{background:rgba(0,128,96,0.08);border-color:rgba(0,128,96,0.3);transform:translateX(4px)}
+  .hero-stat-card .stat-number{font-size:28px;font-weight:900;color:var(--accent);letter-spacing:-1px;line-height:1;margin-bottom:4px}
+  .hero-stat-card .stat-label{font-size:13px;color:var(--gray-400)}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--accent));opacity:0;transition:opacity 0.3s}
+  .card:hover{background:rgba(0,128,96,0.06);border-color:rgba(0,128,96,0.25)}
+  .card:hover::before{opacity:1}
+  .card-icon{font-size:24px;margin-bottom:14px}
+  .card-title{font-size:15px;font-weight:700;margin-bottom:8px}
+  .card-desc{font-size:13px;color:var(--gray-400);line-height:1.6}
+  .card-desc strong{color:var(--accent);font-weight:600}
+
+  .pricing-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:32px;margin-bottom:24px}
+  .pricing-box.highlight{border-color:rgba(0,128,96,0.4);background:rgba(0,128,96,0.06)}
+  .price-big{font-size:36px;font-weight:900;color:var(--accent);letter-spacing:-1px;margin-bottom:4px}
+  .price-per{font-size:13px;color:var(--gray-400);margin-bottom:16px}
+  .price-list{list-style:none}
+  .price-list li{font-size:13px;color:var(--gray-400);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .price-list li:last-child{border-bottom:none}
+
+  .cta-box{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(0,128,96,0.15),rgba(0,212,161,0.08));border:1px solid rgba(0,128,96,0.3);border-radius:20px;padding:28px 36px;margin-top:40px}
+  .cta-title{font-size:20px;font-weight:800;margin-bottom:6px}
+  .cta-sub{font-size:14px;color:var(--gray-400)}
+  .cta-sub a{color:var(--accent);text-decoration:none;font-weight:600}
+  .btn-primary{background:var(--green);color:white;padding:12px 26px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all 0.2s}
+
+  @media(max-width:900px){.hero-grid,.card-grid{grid-template-columns:1fr}.slide{padding:90px 24px 40px}nav{padding:0 20px}.nav-pills{display:none}.cta-box{flex-direction:column;gap:20px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">UD</div>Prepared for Upper Deck</div>
+  <div class="nav-pills">
+    <a href="#slide-1" class="nav-pill active">Overview</a>
+    <a href="#slide-2" class="nav-pill">What We Solve</a>
+    <a href="#slide-3" class="nav-pill">Pricing</a>
+    <a href="#slide-4" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com?subject=Upper%20Deck%20-%20Next%20Steps" class="nav-cta">Get in Touch</a>
+</nav>
+<div class="progress-bar" id="progressBar"></div>
+
+<section class="slide" id="slide-1">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Prepared for Eli &amp; Upper Deck Leadership</div>
+      <h1 class="hero-title">Two dated sites. <span>One modern platform.</span></h1>
+      <p class="hero-sub">Based on our conversation, here&rsquo;s how Shopify Plus consolidates upperdeck.com and upperdeckstore.com into a single platform &mdash; unifying your D2C store, B2B wholesale portal, and marketing content under one roof.</p>
+      <div class="hero-meta" style="margin-top:36px">
+        <div class="hero-avatar">GC</div>
+        <div>
+          <div class="hero-meta-name">Gareth Cowan &amp; Brandon Anderson</div>
+          <div class="hero-meta-role">Shopify Plus &middot; gareth.cowan@shopify.com &middot; 778-917-9299</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-card">
+        <div class="stat-number">1 Platform</div>
+        <div class="stat-label">Replaces Magento (ecomm) + WordPress (marketing). One URL. One admin. One team.</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">D2C + B2B</div>
+        <div class="stat-label">Consumer storefront + gated wholesale portal for distributors &amp; retailers. Same platform.</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">SEO + AI Built In</div>
+        <div class="stat-label">Native SEO tools, structured data, plus automatic product exposure to ChatGPT, Gemini &amp; Copilot via API.</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-number">No More WordPress</div>
+        <div class="stat-label">Landing pages, blogs, marketing content &mdash; all managed natively in Shopify. No plugins. No agency headaches.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<section class="slide" id="slide-2">
+  <div class="section-label">Based on Our Conversation</div>
+  <h2 class="section-title">What Shopify Plus Solves for Upper Deck</h2>
+  <p class="section-sub">Every challenge Eli raised, mapped to a solution.</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">&#x1F517;</div>
+      <div class="card-title">Consolidate Two Sites Into One</div>
+      <div class="card-desc">Merge upperdeck.com (WordPress/marketing) and upperdeckstore.com (Magento/ecomm) into <strong>one upperdeck.com on Shopify Plus.</strong> One URL, one admin, one source of truth. Brandon confirmed this is the easier path.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F3EA;</div>
+      <div class="card-title">B2B Wholesale Portal</div>
+      <div class="card-desc">Distributors and retailers get <strong>gated login access</strong> with their own pricing, PO capture, net payment terms, and order history. Sales team communications stay separate &mdash; portal is for self-service ordering.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F6D2;</div>
+      <div class="card-title">D2C Consumer Store</div>
+      <div class="card-desc">Modern, fast consumer storefront with <strong>Shop Pay (50% higher conversion)</strong>, Apple Pay, Google Pay. Product launches, pre-orders, and collector-focused experiences &mdash; all on the same platform as B2B.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4DD;</div>
+      <div class="card-title">Marketing &amp; Landing Pages</div>
+      <div class="card-desc"><strong>No more WordPress.</strong> Create hobby landing pages, product release pages, athlete pages, and blog content directly in Shopify. No plugins, no agency needed for basic pages, no developers who refuse to touch it.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F50D;</div>
+      <div class="card-title">SEO That Actually Works</div>
+      <div class="card-desc"><strong>Built-in SEO tools</strong> &mdash; redirects, canonical URLs, metadata, sitemaps, structured data. Moving to Shopify typically gives an SEO bump because Google rewards the platform&rsquo;s speed and data structure. No separate SEO agency needed.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F916;</div>
+      <div class="card-title">AI &amp; Generative Engine Ready</div>
+      <div class="card-desc">Shopify pioneered a protocol with <strong>Google, OpenAI, and Microsoft</strong> to automatically expose your product data to ChatGPT, Gemini, and Copilot via API. Collectors asking AI about Upper Deck products will find accurate info &mdash; and can even purchase.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4CB;</div>
+      <div class="card-title">Checklist Pages (Low Lift)</div>
+      <div class="card-desc">Your custom collector checklists (Excel &rarr; table format) are <strong>likely zero development effort on Shopify.</strong> Copy-paste into the page builder, or add as a small item to the agency migration scope. Not a 6-month project.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4CA;</div>
+      <div class="card-title">Analytics &amp; Customer Journey</div>
+      <div class="card-desc">Basic analytics, reporting, and Flow automation <strong>built in.</strong> For deeper insights: Google Analytics, Hot Jar, and <strong>Klaviyo</strong> (Shopify owns 44% &mdash; tight integration) plug in easily. Map the customer lifecycle you don&rsquo;t have today.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F30D;</div>
+      <div class="card-title">International Sales</div>
+      <div class="card-desc"><strong>Shopify Markets</strong> handles multi-currency, duties, localized checkout, and international tax. Scale globally without duct-taping separate solutions together.</div>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<section class="slide" id="slide-3">
+  <div class="section-label">Transparent Pricing</div>
+  <h2 class="section-title">What It Costs</h2>
+  <p class="section-sub">Simple, predictable. No surprises.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px">
+    <div class="pricing-box highlight">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Shopify Plus</div>
+      <div class="price-big">$2,300</div>
+      <div class="price-per">per month &middot; flat rate</div>
+      <ul class="price-list">
+        <li>&#x2713;&nbsp; D2C consumer storefront</li>
+        <li>&#x2713;&nbsp; B2B wholesale portal (gated access, custom pricing)</li>
+        <li>&#x2713;&nbsp; Marketing pages, blogs, landing pages</li>
+        <li>&#x2713;&nbsp; All under one URL (upperdeck.com)</li>
+        <li>&#x2713;&nbsp; SEO tools, AI product exposure, Flow automation</li>
+        <li>&#x2713;&nbsp; Hosting, security, SSL, CDN &mdash; all included</li>
+        <li>&#x2713;&nbsp; Automatic platform updates &mdash; no patch fees</li>
+        <li>&#x2713;&nbsp; 9 expansion stores included</li>
+        <li>&#x2713;&nbsp; Unlimited staff accounts</li>
+      </ul>
+    </div>
+    <div class="pricing-box">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-400);margin-bottom:12px">Transaction Fees</div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:16px">Credit Card Processing</div>
+      <ul class="price-list">
+        <li>Online: <strong style="color:var(--accent)">2.15% + $0.30</strong> per transaction</li>
+        <li>In-person (if applicable): <strong style="color:var(--accent)">2.0% + $0.10</strong></li>
+        <li>Apple Pay / Google Pay: same rate</li>
+        <li>3rd-party gateway surcharge: 0.15%</li>
+        <li>Scaling fee: 0.18% above $1.3M/month</li>
+        <li style="color:var(--accent);font-weight:600;padding-top:12px">Note: At Upper Deck&rsquo;s volume, variable pricing will apply. We&rsquo;ll provide a custom quote once we understand your transaction mix.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="slide-divider"></div>
+
+<section class="slide" id="slide-4">
+  <div class="section-label">What Happens Next</div>
+  <h2 class="section-title">Recommended Next Steps</h2>
+  <p class="section-sub">Here&rsquo;s how we move from conversation to reality.</p>
+  <div class="card-grid" style="grid-template-columns:1fr 1fr">
+    <div class="card">
+      <div class="card-icon">1&#xFE0F;&#x20E3;</div>
+      <div class="card-title">Eli Presents to Director</div>
+      <div class="card-desc">Use this page as your leave-behind. Covers what we discussed, pricing, and why Shopify Plus is the right move. We&rsquo;re here to join a follow-up call with leadership if helpful.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">2&#xFE0F;&#x20E3;</div>
+      <div class="card-title">Gather B2B Payment Info</div>
+      <div class="card-desc">Eli to check with the ecommerce team: <strong>how do wholesale retailers pay today?</strong> Credit card, PO, terms? This helps us architect the B2B portal correctly.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">3&#xFE0F;&#x20E3;</div>
+      <div class="card-title">Partner Introduction</div>
+      <div class="card-desc">When ready, we introduce Upper Deck to an <strong>implementation partner</strong> who will scope the migration from Magento + WordPress, build the consolidated site, and handle integrations.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">4&#xFE0F;&#x20E3;</div>
+      <div class="card-title">Demo &amp; Technical Discovery</div>
+      <div class="card-desc">Brandon can run a <strong>hands-on demo</strong> for the broader team &mdash; showing the B2B portal, marketing page builder, SEO tools, and analytics. We tailor it to Upper Deck&rsquo;s needs.</div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <div>
+      <div class="cta-title">Ready to take the next step?</div>
+      <div class="cta-sub">Shopify is where Upper Deck wants to go. Let&rsquo;s make it happen. <a href="mailto:gareth.cowan@shopify.com">gareth.cowan@shopify.com</a> &middot; 778-917-9299</div>
+    </div>
+    <a href="mailto:gareth.cowan@shopify.com?subject=Upper%20Deck%20-%20Ready%20to%20Move%20Forward" class="btn-primary">Let&rsquo;s Go &rarr;</a>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll',()=>{const s=document.body.scrollTop||document.documentElement.scrollTop;const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;document.getElementById('progressBar').style.width=(s/h)*100+'%'});
+  const sections=document.querySelectorAll('.slide');const pills=document.querySelectorAll('.nav-pill');
+  const obs=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){pills.forEach(p=>p.classList.remove('active'));const i=Array.from(sections).indexOf(entry.target)+1;const a=document.querySelector('.nav-pill[href="#slide-'+i+'"]');if(a)a.classList.add('active')}})},{threshold:0.4});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
