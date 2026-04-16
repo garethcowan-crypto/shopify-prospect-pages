@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ORLY Corp — Shopify Plus vs Advanced for D2C</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #00d4a1; --dark: #0a0a0a; --white: #fff; --gray-400: #9ca3af; --gray-600: #4b5563; --orange: #f59e0b; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: var(--white); line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--gray-400); text-decoration: none; transition: all 0.2s; border: 1px solid transparent; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .nav-cta:hover { background: #00a674; }
+
+  section { padding: 80px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,128,96,0.3), transparent); max-width: 1100px; margin: 0 auto; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+  .sub { font-size: 15px; color: var(--gray-400); margin-bottom: 36px; line-height: 1.7; max-width: 720px; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero h1 span { background: linear-gradient(135deg, #00d4a1, #00a674); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: var(--gray-400); max-width: 640px; line-height: 1.7; }
+
+  /* Comparison table */
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .compare-table thead th { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; padding: 14px 16px; border-bottom: 2px solid rgba(0,128,96,0.3); text-align: left; }
+  .compare-table thead th:nth-child(2) { text-align: center; }
+  .compare-table thead th:nth-child(3) { text-align: center; background: rgba(0,128,96,0.06); border-radius: 8px 8px 0 0; }
+  .compare-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray-400); }
+  .compare-table td:first-child { color: var(--white); font-weight: 500; width: 40%; }
+  .compare-table td:nth-child(2) { text-align: center; width: 30%; }
+  .compare-table td:nth-child(3) { text-align: center; width: 30%; background: rgba(0,128,96,0.03); }
+  .compare-table tr:hover td { background: rgba(0,128,96,0.04); }
+  .check { color: var(--accent); font-weight: 700; }
+  .limited { color: var(--orange); font-weight: 600; }
+  .no { color: #ef4444; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; transition: all 0.3s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); background: rgba(0,128,96,0.05); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+
+  /* Trigger cards */
+  .trigger-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .trigger-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px; }
+  .trigger-card.plus { border-color: rgba(0,128,96,0.3); background: rgba(0,128,96,0.04); }
+  .trigger-card.advanced { border-color: rgba(255,255,255,0.12); }
+  .trigger-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .trigger-card .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .trigger-card.plus .tag { background: rgba(0,128,96,0.2); color: var(--accent); }
+  .trigger-card.advanced .tag { background: rgba(255,255,255,0.08); color: var(--gray-400); }
+  .trigger-card p { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+
+  /* Bottom line */
+  .bottom-line { background: rgba(0,128,96,0.06); border: 1px solid rgba(0,128,96,0.25); border-radius: 16px; padding: 36px; margin-top: 40px; }
+  .bottom-line h3 { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+  .bottom-line p { font-size: 14px; color: var(--gray-400); line-height: 1.8; }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--accent); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  .cta-section { text-align: center; padding: 80px 60px 120px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: var(--gray-400); font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+  .cta-btn:hover { background: #00a674; transform: translateY(-2px); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .trigger-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .compare-table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify × ORLY Corp</div>
+  <div class="nav-pills">
+    <a href="#compare" class="nav-pill">Plus vs Advanced</a>
+    <a href="#triggers" class="nav-pill">When Plus Makes Sense</a>
+    <a href="#dtc" class="nav-pill">D2C Advantages</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">D2C Platform Comparison</div>
+  <h1>Shopify Plus vs Advanced <span>for D2C</span></h1>
+  <p>ORLY Corp is launching a direct-to-consumer brand. Here's a clear breakdown of where Shopify Advanced gets the job done — and where Plus unlocks capabilities that drive growth, efficiency, and competitive advantage.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- FEATURE COMPARISON -->
+<section id="compare">
+  <div class="label">Feature Comparison</div>
+  <div class="title">Side-by-Side: What's Included</div>
+  <div class="sub">Both plans power a full D2C storefront. The difference is in customization, automation, and scale.</div>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Capability</th><th>Advanced ($299/mo)</th><th>Plus ($2,300/mo)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Online storefront</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Shopify Payments</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Shop Pay accelerated checkout</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Abandoned cart recovery</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Gift cards</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Discount codes & automatic discounts</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Multi-location inventory</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td>Analytics & reporting</td><td class="check">Included</td><td class="check">Included</td></tr>
+      <tr><td colspan="3" style="padding: 8px 16px; font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid rgba(0,128,96,0.2);">Where Plus Pulls Ahead</td></tr>
+      <tr><td>Checkout customization</td><td class="no">Limited</td><td class="check">Full extensibility — custom fields, logic, upsells, branding</td></tr>
+      <tr><td>Shopify Flow (automation)</td><td class="limited">Basic</td><td class="check">Full — unlimited workflows, custom triggers, advanced logic</td></tr>
+      <tr><td>Shopify Functions (backend logic)</td><td class="no">Not available</td><td class="check">Custom discount logic, shipping rules, payment methods</td></tr>
+      <tr><td>Expansion stores</td><td class="no">Not available</td><td class="check">Up to 9 included — international, B2B, or brand-specific stores</td></tr>
+      <tr><td>Shopify Audiences</td><td class="no">Not available</td><td class="check">AI-powered ad targeting — find high-intent buyers on Meta, Google, TikTok</td></tr>
+      <tr><td>Launchpad (scheduled events)</td><td class="no">Not available</td><td class="check">Automate flash sales, product drops, seasonal campaigns</td></tr>
+      <tr><td>Credit card rates (online)</td><td>2.4% + $0.30</td><td class="check">2.15% + $0.30</td></tr>
+      <tr><td>Credit card rates (in-person)</td><td>2.4% + $0.10</td><td class="check">2.0% + $0.10</td></tr>
+      <tr><td>3rd-party gateway fee</td><td>0.6%</td><td class="check">0.2%</td></tr>
+      <tr><td>API rate limits</td><td>Standard</td><td class="check">Higher — critical for ERP/inventory integrations</td></tr>
+      <tr><td>Dedicated support</td><td>Standard 24/7</td><td class="check">Dedicated Merchant Success Manager + priority support</td></tr>
+      <tr><td>B2B wholesale (if needed later)</td><td class="limited">3 catalogs, market-based only</td><td class="check">10,000 catalogs, company-level pricing, payment terms</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHEN PLUS MAKES SENSE -->
+<section id="triggers">
+  <div class="label">Decision Framework</div>
+  <div class="title">When D2C Merchants Choose Plus Over Advanced</div>
+  <div class="sub">It's not about size alone. These are the specific triggers that make Plus the right call.</div>
+
+  <div class="trigger-grid">
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You Need Checkout Customization</h4>
+      <p>Custom checkout fields, post-purchase upsells, branded checkout experience, conditional logic based on cart contents or customer segment. If the default checkout isn't enough, you need Plus.</p>
+    </div>
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You're Running Multiple Brands or Markets</h4>
+      <p>ORLY has 20+ brands. If any of them need their own storefront — different branding, different domain, different market — expansion stores are Plus-only. Up to 9 included.</p>
+    </div>
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You Want to Reduce Ad Spend Waste</h4>
+      <p>Shopify Audiences uses first-party data from Shop Pay's 100M+ buyers to build high-intent audiences for Meta, Google, and TikTok. Merchants see up to 50% lower CAC. Plus-only.</p>
+    </div>
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You Need Automation at Scale</h4>
+      <p>Full Shopify Flow lets you automate inventory alerts, fraud flagging, customer tagging, loyalty workflows, and order routing. Advanced has basic automation — Plus unlocks everything.</p>
+    </div>
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You're Doing $1M+ and Transaction Fees Matter</h4>
+      <p>On $2M in annual online revenue, the difference between 2.4% and 2.15% saves ~$5,000/yr in processing fees alone. That offsets a significant portion of the Plus cost.</p>
+    </div>
+    <div class="trigger-card plus">
+      <div class="tag">Plus trigger</div>
+      <h4>You May Add Wholesale Later</h4>
+      <p>If the D2C brand succeeds and you want to add a wholesale channel, Plus gives you full B2B with 10,000 catalogs, company accounts, and payment terms. Advanced limits you to 3 catalogs.</p>
+    </div>
+    <div class="trigger-card advanced">
+      <div class="tag">Advanced is fine</div>
+      <h4>You're Testing the Market First</h4>
+      <p>If this is a lean launch to validate demand before scaling — small catalog, limited SKUs, no integrations — Advanced at $299/mo is a lower-risk starting point. You can upgrade to Plus later.</p>
+    </div>
+    <div class="trigger-card advanced">
+      <div class="tag">Advanced is fine</div>
+      <h4>Simple Storefront, No Customization Needed</h4>
+      <p>If a standard Shopify theme with default checkout, basic discounts, and standard reporting meets all your needs, Advanced delivers a full-featured D2C experience without the Plus price tag.</p>
+    </div>
+  </div>
+
+  <div class="bottom-line">
+    <h3>The Bottom Line for ORLY</h3>
+    <p>If you're launching a D2C brand with plans to scale, run product drops or flash sales, customize the checkout, target high-intent buyers with Shopify Audiences, and potentially expand to multiple brand storefronts — Plus pays for itself. If you're testing the waters with a single brand and simple setup, Advanced is a solid starting point with a clear upgrade path.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- D2C ADVANTAGES -->
+<section id="dtc">
+  <div class="label">D2C on Shopify</div>
+  <div class="title">What Every D2C Brand Gets on Shopify</div>
+  <div class="sub">Regardless of plan, here's what powers your direct-to-consumer business.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🛍️</div>
+      <h3>Shop Pay — 50% Higher Conversion</h3>
+      <p>Shop Pay converts 50% better than guest checkout. 100M+ buyers with saved payment info. One-tap checkout on mobile. Available on both Advanced and Plus.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>Mobile-First by Default</h3>
+      <p>Every Shopify theme is responsive. With 70%+ of D2C traffic on mobile, your storefront is optimized from day one — no custom development needed.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌍</div>
+      <h3>Global Selling</h3>
+      <p>Multi-currency, international domains, localized checkout, duties and taxes. Sell in the US, Canada, and beyond from one admin.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Built-In Analytics</h3>
+      <p>Customer acquisition cost, lifetime value, product performance, conversion funnel — all native. Plus adds custom report builders and deeper segmentation.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>8,000+ Apps</h3>
+      <p>Subscriptions, reviews, loyalty, email marketing, SMS, returns, sizing — whatever you need, there's an app for it. Largest ecommerce ecosystem.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>AI-Ready Commerce</h3>
+      <p>Shopify Magic for product descriptions, image editing, and email copy. Sidekick AI assistant for admin tasks. Your product data is surfaced to ChatGPT, Gemini, and Copilot via Shopify's AI protocol.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Next Steps</div>
+  <div class="title">Getting Your D2C Brand Live</div>
+  <div class="sub">A clear path from decision to launch.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Partner Introductions</h4>
+      <p>We'll connect you with a Shopify implementation partner experienced in D2C brand launches and fashion/lifestyle verticals.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Scoping Call</h4>
+      <p>Define the brand storefront, integrations, fulfillment strategy, and go-to-market plan with your partner.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Executive Read Back</h4>
+      <p>Partner presents the recommended approach, platform selection (Advanced vs Plus), timeline, and investment for leadership alignment.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Proposal Review</h4>
+      <p>Formal scope of work with deliverables, timeline, and pricing for your team to review and approve before build begins.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Let's Figure Out the Right Fit</h2>
+  <p>I'll walk you through the options and help you choose the plan that matches where you are today — and where you're headed.</p>
+  <a href="mailto:gareth.cowan@shopify.com?subject=ORLY%20Corp%20-%20D2C%20Platform%20Discussion" class="cta-btn">Email Gareth Cowan</a>
+  <p style="margin-top: 16px; font-size: 12px; color: var(--gray-600);">gareth.cowan@shopify.com  |  778-917-9299</p>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan, Shopify Plus  |  April 2026  |  Confidential
+</div>
+
+</body>
+</html>
