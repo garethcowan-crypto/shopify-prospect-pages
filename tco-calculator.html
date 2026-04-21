@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCO Calculator — Shopify Plus vs Current Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;padding:40px 20px}
+.calc-container{max-width:900px;margin:0 auto}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.3rem}
+.subtitle{color:#9ca3af;font-size:.95rem;margin-bottom:2rem}
+.accent{background:linear-gradient(135deg,#008060,#00d4a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Inputs */
+.input-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.8rem;margin-bottom:1.5rem}
+.input-section h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
+.input-section .desc{font-size:.78rem;color:#9ca3af;margin-bottom:1.2rem}
+.input-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.input-group{display:flex;flex-direction:column;gap:.3rem}
+.input-group label{font-size:.75rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.08em}
+.input-group input,.input-group select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;transition:border-color .2s}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:rgba(0,128,96,.5);box-shadow:0 0 0 2px rgba(0,128,96,.15)}
+.input-group select option{background:#1a1a1a;color:#fff}
+.input-group .hint{font-size:.7rem;color:#666;margin-top:2px}
+
+/* Results */
+.results{margin-top:2rem}
+.results h2{font-size:1.4rem;font-weight:800;margin-bottom:1.2rem}
+.result-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.result-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.6rem;text-align:center}
+.result-card.current{border-color:rgba(239,68,68,.3)}
+.result-card.shopify{border-color:rgba(0,128,96,.4);background:rgba(0,128,96,.04)}
+.result-card .card-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.8rem}
+.result-card.current .card-label{color:#ef4444}
+.result-card.shopify .card-label{color:#00d4a1}
+.result-card .total{font-size:2.2rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.3rem}
+.result-card.current .total{color:#ef4444}
+.result-card.shopify .total{color:#00d4a1}
+.result-card .per-month{font-size:.8rem;color:#9ca3af}
+
+.savings-banner{background:rgba(0,128,96,.08);border:1px solid rgba(0,128,96,.25);border-radius:14px;padding:1.6rem;text-align:center;margin-bottom:1.5rem}
+.savings-banner .savings-amount{font-size:2.4rem;font-weight:900;color:#00d4a1;margin-bottom:.3rem}
+.savings-banner .savings-label{font-size:.85rem;color:#9ca3af}
+.savings-banner .savings-pct{font-size:1rem;font-weight:700;color:#00d4a1;margin-top:.3rem}
+
+/* Breakdown table */
+.breakdown{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
+.breakdown table{width:100%;border-collapse:collapse}
+.breakdown thead th{text-align:left;padding:.8rem 1.2rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9ca3af;border-bottom:1px solid rgba(255,255,255,.08)}
+.breakdown thead th:nth-child(2){color:#ef4444;text-align:right}
+.breakdown thead th:nth-child(3){color:#00d4a1;text-align:right}
+.breakdown thead th:nth-child(4){text-align:right}
+.breakdown tbody td{padding:.7rem 1.2rem;font-size:.82rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.breakdown tbody td:first-child{font-weight:500}
+.breakdown tbody td:nth-child(2){text-align:right;color:#ef4444}
+.breakdown tbody td:nth-child(3){text-align:right;color:#00d4a1}
+.breakdown tbody td:nth-child(4){text-align:right;font-weight:700}
+.breakdown tbody tr:last-child td{border-bottom:none;font-weight:700;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1)}
+.positive{color:#00d4a1 !important}
+.negative{color:#ef4444 !important}
+
+/* Processing comparison */
+.proc-section{margin-top:2rem}
+.proc-section h3{font-size:1.1rem;font-weight:800;margin-bottom:.3rem}
+.proc-section .desc{font-size:.8rem;color:#9ca3af;margin-bottom:1rem}
+.proc-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.proc-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.4rem}
+.proc-card h4{font-size:.85rem;font-weight:700;margin-bottom:.8rem}
+.proc-card.current h4{color:#ef4444}
+.proc-card.shopify h4{color:#00d4a1}
+.proc-row{display:flex;justify-content:space-between;padding:5px 0;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.proc-row:last-child{border-bottom:none}
+.proc-row .label{color:#9ca3af}
+.proc-row .val{font-weight:600}
+.proc-result{text-align:center;margin-top:.5rem;padding:.8rem;background:rgba(0,128,96,.06);border-radius:10px}
+.proc-result .val{font-size:1.2rem;font-weight:800;color:#00d4a1}
+.proc-result .label{font-size:.75rem;color:#9ca3af;margin-top:.2rem}
+
+.note{font-size:.75rem;color:#666;margin-top:1rem;line-height:1.5;font-style:italic}
+.btn-calc{display:block;width:100%;background:#008060;color:#fff;border:none;padding:14px;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:1rem}
+.btn-calc:hover{background:#00d4a1;color:#0a0a0a}
+
+@media(max-width:640px){
+  .input-grid,.result-cards,.proc-cards{grid-template-columns:1fr}
+  body{padding:20px 12px}
+}
+</style>
+</head>
+<body>
+<div class="calc-container">
+  <h1>Total Cost of Ownership <span class="accent">Calculator</span></h1>
+  <p class="subtitle">Compare your current stack costs against Shopify Plus — platform fees, processing, hosting, and hidden costs.</p>
+
+  <!-- REVENUE INPUTS -->
+  <div class="input-section">
+    <h3>Revenue & Volume</h3>
+    <div class="desc">Enter your monthly sales volume to calculate processing fees.</div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Monthly Online Revenue (USD)</label>
+        <input type="text" id="monthlyRevenue" value="167,000" oninput="calculate()">
+        <div class="hint">H&A: ~$167K/mo based on ~$2M annual</div>
+      </div>
+      <div class="input-group">
+        <label>Monthly Transactions</label>
+        <input type="number" id="monthlyTxns" value="1200" oninput="calculate()">
+        <div class="hint">Estimated number of orders per month</div>
+      </div>
+      <div class="input-group">
+        <label>% Revenue from B2B</label>
+        <input type="number" id="b2bPct" value="60" min="0" max="100" oninput="calculate()">
+        <div class="hint">H&A: 60% wholesale</div>
+      </div>
+      <div class="input-group">
+        <label>% Revenue from D2C</label>
+        <input type="number" id="d2cPct" value="40" min="0" max="100" oninput="calculate()">
+        <div class="hint">H&A: 40% direct to consumer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENT COSTS -->
+  <div class="input-section">
+    <h3>Current Platform Costs (Monthly)</h3>
+    <div class="desc">What you're paying today — or estimate what WooCommerce would cost if completed.</div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Platform / Licensing</label>
+        <input type="text" id="currentPlatform" value="0" oninput="calculate()">
+        <div class="hint">WooCommerce is "free" but...</div>
+      </div>
+      <div class="input-group">
+        <label>Hosting & Infrastructure</label>
+        <input type="text" id="currentHosting" value="200" oninput="calculate()">
+        <div class="hint">Server, CDN, SSL, backups</div>
+      </div>
+      <div class="input-group">
+        <label>Developer / Maintenance</label>
+        <input type="text" id="currentDev" value="3,000" oninput="calculate()">
+        <div class="hint">Ongoing dev, plugin updates, bug fixes</div>
+      </div>
+      <div class="input-group">
+        <label>Security & PCI Compliance</label>
+        <input type="text" id="currentSecurity" value="100" oninput="calculate()">
+        <div class="hint">SSL, scanning, PCI, WAF</div>
+      </div>
+      <div class="input-group">
+        <label>Patches & Updates</label>
+        <input type="text" id="currentPatches" value="250" oninput="calculate()">
+        <div class="hint">WooCommerce/PHP/plugin updates</div>
+      </div>
+      <div class="input-group">
+        <label>Tax Service (ZipTax, etc.)</label>
+        <input type="text" id="currentTax" value="45" oninput="calculate()">
+        <div class="hint">Current tax calculation tool</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESSING FEES -->
+  <div class="input-section">
+    <h3>Current Payment Processing (Braintree)</h3>
+    <div class="desc">Enter your current Braintree rates to compare against Shopify Payments.</div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Braintree Rate (%)</label>
+        <input type="number" id="braintreeRate" value="2.59" step="0.01" oninput="calculate()">
+        <div class="hint">All-in effective rate (interchange + markup)</div>
+      </div>
+      <div class="input-group">
+        <label>Braintree Per-Transaction Fee ($)</label>
+        <input type="number" id="braintreeTxnFee" value="0.49" step="0.01" oninput="calculate()">
+        <div class="hint">Fixed fee per transaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPIFY COSTS -->
+  <div class="input-section">
+    <h3>Shopify Plus Costs</h3>
+    <div class="desc">Pre-filled with standard Plus pricing. Adjust if needed.</div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Plus License (Monthly)</label>
+        <input type="text" id="shopifyLicense" value="2,300" oninput="calculate()">
+        <div class="hint">$2,300/mo (3-yr) or $2,500/mo (1-yr)</div>
+      </div>
+      <div class="input-group">
+        <label>Sage 300 Middleware (Monthly)</label>
+        <input type="text" id="shopifyMiddleware" value="300" oninput="calculate()">
+        <div class="hint">Commercient / APPSeCONNECT / Hutility</div>
+      </div>
+      <div class="input-group">
+        <label>Shopify Payments Online Rate (%)</label>
+        <input type="number" id="shopifyRate" value="2.15" step="0.01" oninput="calculate()">
+      </div>
+      <div class="input-group">
+        <label>Shopify Per-Transaction Fee ($)</label>
+        <input type="number" id="shopifyTxnFee" value="0.30" step="0.01" oninput="calculate()">
+      </div>
+      <div class="input-group">
+        <label>Shopify Tax Fee (Monthly Est.)</label>
+        <input type="text" id="shopifyTaxFee" value="90" oninput="calculate()">
+        <div class="hint">0.25% on taxable orders, capped $0.99/order. Low for B2B-heavy.</div>
+      </div>
+      <div class="input-group">
+        <label>Hosting / Security / Patches</label>
+        <input type="text" id="shopifyHosting" value="0" disabled>
+        <div class="hint">Included with Plus — always $0</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-calc" onclick="calculate()">Calculate Total Cost of Ownership</button>
+
+  <!-- RESULTS -->
+  <div class="results" id="results" style="display:none;">
+    <h2>Annual Cost Comparison</h2>
+    
+    <div class="result-cards">
+      <div class="result-card current">
+        <div class="card-label">Current Stack (Annual)</div>
+        <div class="total" id="r-current-total">--</div>
+        <div class="per-month" id="r-current-monthly">--</div>
+      </div>
+      <div class="result-card shopify">
+        <div class="card-label">Shopify Plus (Annual)</div>
+        <div class="total" id="r-shopify-total">--</div>
+        <div class="per-month" id="r-shopify-monthly">--</div>
+      </div>
+    </div>
+
+    <div class="savings-banner" id="savings-banner">
+      <div class="savings-amount" id="r-savings">--</div>
+      <div class="savings-label">Estimated Annual Savings with Shopify Plus</div>
+      <div class="savings-pct" id="r-savings-pct">--</div>
+    </div>
+
+    <div class="breakdown">
+      <table>
+        <thead><tr><th>Line Item</th><th>Current (Annual)</th><th>Shopify Plus (Annual)</th><th>Difference</th></tr></thead>
+        <tbody id="breakdown-body"></tbody>
+      </table>
+    </div>
+
+    <!-- PROCESSING COMPARISON -->
+    <div class="proc-section">
+      <h3>Payment Processing Comparison</h3>
+      <div class="desc">Side-by-side: Braintree vs Shopify Payments on your volume.</div>
+      <div class="proc-cards">
+        <div class="proc-card current">
+          <h4>Braintree (Current)</h4>
+          <div class="proc-row"><span class="label">Rate</span><span class="val" id="p-bt-rate">--</span></div>
+          <div class="proc-row"><span class="label">Per-txn fee</span><span class="val" id="p-bt-txn">--</span></div>
+          <div class="proc-row"><span class="label">Monthly volume</span><span class="val" id="p-bt-vol">--</span></div>
+          <div class="proc-row"><span class="label">Monthly processing cost</span><span class="val" id="p-bt-cost">--</span></div>
+          <div class="proc-row"><span class="label">Annual processing cost</span><span class="val" id="p-bt-annual">--</span></div>
+          <div class="proc-row"><span class="label">Effective rate</span><span class="val" id="p-bt-eff">--</span></div>
+        </div>
+        <div class="proc-card shopify">
+          <h4>Shopify Payments (Plus)</h4>
+          <div class="proc-row"><span class="label">Rate</span><span class="val" id="p-sp-rate">--</span></div>
+          <div class="proc-row"><span class="label">Per-txn fee</span><span class="val" id="p-sp-txn">--</span></div>
+          <div class="proc-row"><span class="label">Monthly volume</span><span class="val" id="p-sp-vol">--</span></div>
+          <div class="proc-row"><span class="label">Monthly processing cost</span><span class="val" id="p-sp-cost">--</span></div>
+          <div class="proc-row"><span class="label">Annual processing cost</span><span class="val" id="p-sp-annual">--</span></div>
+          <div class="proc-row"><span class="label">Effective rate</span><span class="val" id="p-sp-eff">--</span></div>
+        </div>
+      </div>
+      <div class="proc-result">
+        <div class="val" id="p-savings">--</div>
+        <div class="label">Annual Processing Savings with Shopify Payments</div>
+      </div>
+    </div>
+
+    <p class="note">Estimates are for illustrative purposes only. Actual costs may vary based on transaction mix, card types, international orders, and negotiated rates. Processing comparison assumes all transactions are online. Shopify Tax fee estimate assumes ~40% of orders are taxable (D2C portion) at 0.25% capped at $0.99/order.</p>
+  </div>
+</div>
+
+<script>
+function parseNum(id){
+  const v = document.getElementById(id).value.replace(/[^0-9.-]/g,'');
+  return parseFloat(v) || 0;
+}
+function fmt(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtD(n){ return (n>=0?'+':'')+fmt(n); }
+
+function calculate(){
+  const rev = parseNum('monthlyRevenue');
+  const txns = parseNum('monthlyTxns');
+  const b2b = parseNum('b2bPct')/100;
+  const d2c = parseNum('d2cPct')/100;
+
+  // Current costs (monthly)
+  const cPlatform = parseNum('currentPlatform');
+  const cHosting = parseNum('currentHosting');
+  const cDev = parseNum('currentDev');
+  const cSecurity = parseNum('currentSecurity');
+  const cPatches = parseNum('currentPatches');
+  const cTax = parseNum('currentTax');
+
+  // Current processing
+  const btRate = parseNum('braintreeRate')/100;
+  const btTxn = parseNum('braintreeTxnFee');
+  const btProcessing = (rev * btRate) + (txns * btTxn);
+
+  // Shopify costs (monthly)
+  const sLicense = parseNum('shopifyLicense');
+  const sMiddleware = parseNum('shopifyMiddleware');
+  const sTaxFee = parseNum('shopifyTaxFee');
+
+  // Shopify processing
+  const spRate = parseNum('shopifyRate')/100;
+  const spTxn = parseNum('shopifyTxnFee');
+  const spProcessing = (rev * spRate) + (txns * spTxn);
+
+  // Monthly totals
+  const currentMonthly = cPlatform + cHosting + cDev + cSecurity + cPatches + cTax + btProcessing;
+  const shopifyMonthly = sLicense + sMiddleware + sTaxFee + 0 + spProcessing;
+
+  // Annual
+  const currentAnnual = currentMonthly * 12;
+  const shopifyAnnual = shopifyMonthly * 12;
+  const savings = currentAnnual - shopifyAnnual;
+  const savingsPct = currentAnnual > 0 ? ((savings / currentAnnual) * 100).toFixed(1) : 0;
+
+  // Show results
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('r-current-total').textContent = fmt(currentAnnual);
+  document.getElementById('r-current-monthly').textContent = fmt(currentMonthly) + ' /mo';
+  document.getElementById('r-shopify-total').textContent = fmt(shopifyAnnual);
+  document.getElementById('r-shopify-monthly').textContent = fmt(shopifyMonthly) + ' /mo';
+  
+  const sb = document.getElementById('savings-banner');
+  const se = document.getElementById('r-savings');
+  const sp = document.getElementById('r-savings-pct');
+  if(savings > 0){
+    se.textContent = fmt(savings);
+    sp.textContent = savingsPct + '% lower with Shopify Plus';
+    sb.style.background = 'rgba(0,128,96,.08)';
+    sb.style.borderColor = 'rgba(0,128,96,.25)';
+    se.style.color = '#00d4a1';
+  } else {
+    se.textContent = fmt(Math.abs(savings));
+    sp.textContent = 'Additional annual cost with Shopify Plus';
+    sb.style.background = 'rgba(245,158,11,.08)';
+    sb.style.borderColor = 'rgba(245,158,11,.25)';
+    se.style.color = '#f59e0b';
+    sp.style.color = '#f59e0b';
+  }
+
+  // Breakdown table
+  const rows = [
+    ['Platform / Licensing', cPlatform*12, sLicense*12],
+    ['Hosting & Infrastructure', cHosting*12, 0],
+    ['Developer / Maintenance', cDev*12, 0],
+    ['Security & PCI', cSecurity*12, 0],
+    ['Patches & Updates', cPatches*12, 0],
+    ['Tax Service', cTax*12, sTaxFee*12],
+    ['Sage 300 Middleware', 0, sMiddleware*12],
+    ['Payment Processing', btProcessing*12, spProcessing*12],
+    ['TOTAL', currentAnnual, shopifyAnnual],
+  ];
+
+  const tbody = document.getElementById('breakdown-body');
+  tbody.innerHTML = '';
+  rows.forEach(r => {
+    const diff = r[1] - r[2];
+    const cls = diff > 0 ? 'positive' : diff < 0 ? 'negative' : '';
+    tbody.innerHTML += `<tr><td>${r[0]}</td><td>${fmt(r[1])}</td><td>${fmt(r[2])}</td><td class="${cls}">${diff!==0?fmtD(diff):'-'}</td></tr>`;
+  });
+
+  // Processing comparison
+  document.getElementById('p-bt-rate').textContent = (btRate*100).toFixed(2)+'%';
+  document.getElementById('p-bt-txn').textContent = '$'+btTxn.toFixed(2);
+  document.getElementById('p-bt-vol').textContent = fmt(rev);
+  document.getElementById('p-bt-cost').textContent = fmt(btProcessing);
+  document.getElementById('p-bt-annual').textContent = fmt(btProcessing*12);
+  document.getElementById('p-bt-eff').textContent = rev>0?((btProcessing/rev)*100).toFixed(2)+'%':'--';
+
+  document.getElementById('p-sp-rate').textContent = (spRate*100).toFixed(2)+'%';
+  document.getElementById('p-sp-txn').textContent = '$'+spTxn.toFixed(2);
+  document.getElementById('p-sp-vol').textContent = fmt(rev);
+  document.getElementById('p-sp-cost').textContent = fmt(spProcessing);
+  document.getElementById('p-sp-annual').textContent = fmt(spProcessing*12);
+  document.getElementById('p-sp-eff').textContent = rev>0?((spProcessing/rev)*100).toFixed(2)+'%':'--';
+
+  const procSavings = (btProcessing - spProcessing)*12;
+  document.getElementById('p-savings').textContent = (procSavings>=0?'+':'')+fmt(procSavings)+'/yr';
+}
+
+calculate();
+</script>
+</body>
+</html>
