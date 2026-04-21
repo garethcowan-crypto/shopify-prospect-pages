@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify Plus Pricing — Herbalist &amp; Alchemist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#fff;line-height:1.6;overflow-x:hidden}
+::selection{background:rgba(0,128,96,.4);color:#fff}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-weight:700;font-size:1.05rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+.nav-logo .plus{color:#00d4a1;font-weight:800}
+.nav-pills{display:flex;gap:.25rem;background:rgba(255,255,255,.04);border-radius:8px;padding:3px}
+.nav-pills a{color:#9ca3af;text-decoration:none;font-size:.78rem;font-weight:500;padding:6px 14px;border-radius:6px;transition:all .2s}
+.nav-pills a:hover,.nav-pills a.active{color:#fff;background:rgba(255,255,255,.08)}
+.nav-cta{background:#008060;color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .25s}
+.nav-cta:hover{background:#00d4a1;color:#0a0a0a}
+
+/* PROGRESS */
+.progress-bar{position:fixed;top:60px;left:0;height:2px;z-index:101;background:linear-gradient(90deg,#008060,#00d4a1);width:0%;transition:width .15s linear}
+
+/* SECTIONS */
+section{min-height:100vh;padding:100px 2rem 60px;display:flex;align-items:center;justify-content:center}
+.container{max-width:1160px;width:100%;margin:0 auto}
+.section-badge{display:inline-block;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#00d4a1;background:rgba(0,212,161,.08);border:1px solid rgba(0,212,161,.15);padding:6px 16px;border-radius:100px;margin-bottom:1.2rem}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:.8rem}
+.section-subtitle{color:#9ca3af;font-size:1.05rem;max-width:620px;font-weight:400;margin-bottom:2.5rem}
+
+/* CARDS */
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.6rem;transition:border-color .3s}
+.card:hover{border-color:rgba(0,128,96,.4)}
+
+/* HERO */
+.hero-title{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:1rem}
+.hero-title .accent{background:linear-gradient(135deg,#008060,#00d4a1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{color:#9ca3af;font-size:1.1rem;max-width:640px;margin-bottom:3rem;font-weight:400;line-height:1.7}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat-card{text-align:center;padding:1.8rem 1.2rem}
+.stat-value{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem;color:#00d4a1}
+.stat-label{font-size:.78rem;color:#9ca3af;font-weight:500}
+
+/* CHALLENGES */
+.challenges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.challenge-icon{font-size:1.6rem;margin-bottom:.8rem}
+.challenge-title{font-weight:700;font-size:.95rem;margin-bottom:.5rem}
+.challenge-desc{font-size:.84rem;color:#9ca3af;line-height:1.65}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:1.5rem}
+.pricing-card{padding:2rem 1.6rem;position:relative;display:flex;flex-direction:column}
+.pricing-card.featured{border-color:rgba(0,128,96,.5);background:rgba(0,128,96,.06)}
+.pricing-card.featured::before{content:'RECOMMENDED';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#008060,#00d4a1);color:#0a0a0a;font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:4px 16px;border-radius:0 0 8px 8px}
+.pricing-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9ca3af;margin-bottom:.8rem}
+.pricing-amount{font-size:2.4rem;font-weight:900;letter-spacing:-.03em}
+.pricing-amount small{font-size:.9rem;font-weight:500;color:#9ca3af}
+.pricing-desc{font-size:.82rem;color:#9ca3af;margin:1rem 0 1.2rem;line-height:1.6;flex:1}
+.pricing-bullets{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.pricing-bullets li{font-size:.82rem;display:flex;align-items:flex-start;gap:.5rem}
+.pricing-bullets li::before{content:'✓';color:#00d4a1;font-weight:700;flex-shrink:0}
+.pricing-table{width:100%;border-collapse:collapse;margin-top:.8rem}
+.pricing-table td{padding:6px 0;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.pricing-table td:first-child{color:#9ca3af}
+.pricing-table td:last-child{text-align:right;font-weight:600}
+.callout{background:rgba(0,128,96,.06);border:1px solid rgba(0,128,96,.2);border-radius:14px;padding:1.6rem 2rem}
+.callout-title{font-weight:700;font-size:.95rem;margin-bottom:.5rem;color:#00d4a1}
+.callout-text{font-size:.88rem;color:#9ca3af;line-height:1.7}
+
+/* ADDITIONAL COSTS */
+.additional-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.additional-icon{font-size:1.4rem;margin-bottom:.6rem}
+.additional-title{font-weight:700;font-size:.95rem;margin-bottom:.15rem}
+.additional-price{font-size:.82rem;color:#00d4a1;font-weight:600;margin-bottom:.5rem}
+.additional-desc{font-size:.82rem;color:#9ca3af;line-height:1.6}
+
+/* COMPARISON */
+.comparison-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.comparison-table{width:100%;border-collapse:collapse;min-width:700px}
+.comparison-table thead th{text-align:left;padding:1rem 1.2rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9ca3af;border-bottom:1px solid rgba(255,255,255,.08)}
+.comparison-table thead th:nth-child(2){color:#9ca3af}
+.comparison-table thead th:nth-child(3){color:#00d4a1}
+.comparison-table tbody td{padding:.85rem 1.2rem;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.comparison-table tbody tr:last-child td{border-bottom:none}
+.comparison-table tbody td:first-child{font-weight:600;color:#fff}
+.comparison-table tbody td:nth-child(2){color:#9ca3af}
+.comparison-table tbody td:nth-child(3){color:#fff}
+.comparison-table .check{color:#00d4a1;font-weight:700}
+.comparison-table .cross{color:#ef4444;font-weight:700}
+.callout-warning{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:14px;padding:1.6rem 2rem;margin-top:1.5rem}
+.callout-warning .callout-title{color:#ef4444}
+
+/* NEXT STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.step-number{width:36px;height:36px;border-radius:50%;background:rgba(0,128,96,.15);border:1px solid rgba(0,128,96,.3);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#00d4a1;margin-bottom:1rem}
+.step-title{font-weight:700;font-size:.95rem;margin-bottom:.4rem}
+.step-desc{font-size:.82rem;color:#9ca3af;line-height:1.6}
+.cta-box{text-align:center;background:rgba(0,128,96,.06);border:1px solid rgba(0,128,96,.2);border-radius:14px;padding:2.5rem 2rem}
+.cta-box p{font-size:1rem;margin-bottom:1.2rem;font-weight:500}
+.cta-box .email-btn{display:inline-block;background:#008060;color:#fff;text-decoration:none;padding:12px 32px;border-radius:10px;font-weight:600;font-size:.95rem;transition:all .25s}
+.cta-box .email-btn:hover{background:#00d4a1;color:#0a0a0a}
+.cta-box .contact-info{margin-top:1rem;font-size:.85rem;color:#9ca3af}
+
+/* FOOTER */
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,255,255,.06);font-size:.78rem;color:#666}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .stats-row,.challenges-grid,.steps-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid{grid-template-columns:1fr}
+  .additional-grid{grid-template-columns:1fr}
+  .nav-pills{display:none}
+}
+@media(max-width:600px){
+  .stats-row,.steps-grid{grid-template-columns:1fr}
+  section{padding:80px 1.2rem 40px}
+  .nav{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">Shopify <span class="plus">Plus</span></div>
+  <div class="nav-pills">
+    <a href="#hero">Overview</a>
+    <a href="#challenges">Challenges</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#additional">Budget</a>
+    <a href="#comparison">Why Plus</a>
+    <a href="#next">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Get in Touch</a>
+</nav>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <span class="section-badge">Prepared for Herbalist &amp; Alchemist</span>
+    <h1 class="hero-title">Shopify Plus —<br>Transparent Pricing for <span class="accent">H&amp;A</span></h1>
+    <p class="hero-subtitle">Everything you need to know about costs, what's included, and why Plus is the right fit for your business.</p>
+    <div class="stats-row">
+      <div class="card stat-card">
+        <div class="stat-value">$2,300/mo</div>
+        <div class="stat-label">Shopify Plus (flat)</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">2.15% + $0.30</div>
+        <div class="stat-label">Online Credit Card Rate</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">$0</div>
+        <div class="stat-label">Hosting, Security, Patches</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-value">10,000</div>
+        <div class="stat-label">B2B Catalogs Included</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGES -->
+<section id="challenges">
+  <div class="container">
+    <span class="section-badge">Discovery</span>
+    <h2 class="section-title">The Challenges Driving This Decision</h2>
+    <p class="section-subtitle">From our discovery conversations — the problems you're solving.</p>
+    <div class="challenges-grid">
+      <div class="card">
+        <div class="challenge-icon">🔧</div>
+        <div class="challenge-title">Broken WooCommerce Build</div>
+        <p class="challenge-desc">80% complete but unusable. Fragile code, plugin conflicts, slow load times. PayPal Express checkout loop traps customers.</p>
+      </div>
+      <div class="card">
+        <div class="challenge-icon">💊</div>
+        <div class="challenge-title">Compliance Gaps</div>
+        <p class="challenge-desc">Hazmat DOT shipping (194 oz max, auto-split required). California Prop 65 warnings at checkout. FDA disclaimers on every product page.</p>
+      </div>
+      <div class="card">
+        <div class="challenge-icon">📊</div>
+        <div class="challenge-title">Manual Everything</div>
+        <p class="challenge-desc">Loyalty programs managed by hand. Shipping restrictions handled manually. Marketing segmentation is manual in Constant Contact.</p>
+      </div>
+      <div class="card">
+        <div class="challenge-icon">🔗</div>
+        <div class="challenge-title">Sage 300 Integration</div>
+        <p class="challenge-desc">ERP is your source of truth for inventory, pricing, and invoicing. Current site is tightly coupled. New platform must integrate via middleware.</p>
+      </div>
+      <div class="card">
+        <div class="challenge-icon">🏢</div>
+        <div class="challenge-title">B2B Is 60% of Revenue</div>
+        <p class="challenge-desc">Practitioners and health food stores are your wholesale backbone. No self-service portal exists today. Need custom pricing, net terms, and quick ordering.</p>
+      </div>
+      <div class="card">
+        <div class="challenge-icon">💸</div>
+        <div class="challenge-title">Cost Sensitivity</div>
+        <p class="challenge-desc">You asked about Shopify's reputation for being expensive. The real question: what's the total cost of ownership vs. continuing to pay for a broken WooCommerce build?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <span class="section-badge">Pricing</span>
+    <h2 class="section-title">What Shopify Plus Costs — No Surprises</h2>
+    <p class="section-subtitle">Simple, transparent pricing. Here's exactly what you'd pay.</p>
+    <div class="pricing-grid">
+      <div class="card pricing-card featured">
+        <div class="pricing-label">Shopify Plus</div>
+        <div class="pricing-amount">$2,300<small> /mo</small></div>
+        <p class="pricing-desc">Fixed monthly fee. Includes B2B portal, D2C storefront, checkout extensibility, Flow automation, and up to 9 expansion stores.</p>
+        <ul class="pricing-bullets">
+          <li>B2B company accounts &amp; catalogs</li>
+          <li>Checkout UI extensions (Prop 65)</li>
+          <li>Shopify Flow automation</li>
+          <li>10,000 catalogs</li>
+          <li>Unlimited staff accounts</li>
+          <li>Dedicated Merchant Success Manager</li>
+        </ul>
+      </div>
+      <div class="card pricing-card">
+        <div class="pricing-label">Credit Card Processing</div>
+        <div class="pricing-amount">2.15%<small> + $0.30</small></div>
+        <p class="pricing-desc">Per online transaction via Shopify Payments. Among the lowest rates in the industry.</p>
+        <table class="pricing-table">
+          <tr><td>Online</td><td>2.15% + $0.30</td></tr>
+          <tr><td>In-person (Zettle)</td><td>2.0% + $0.10</td></tr>
+          <tr><td>3rd-party gateway</td><td>+0.2% surcharge</td></tr>
+          <tr><td>Apple / Google Pay</td><td>Same as online</td></tr>
+        </table>
+      </div>
+      <div class="card pricing-card">
+        <div class="pricing-label">What's Included (No Extra Cost)</div>
+        <div class="pricing-amount">$0</div>
+        <p class="pricing-desc">These are all included in the $2,300/mo — no add-ons, no surprises.</p>
+        <ul class="pricing-bullets">
+          <li>Hosting &amp; SSL</li>
+          <li>Security &amp; PCI compliance</li>
+          <li>Automatic platform updates</li>
+          <li>99.99% uptime SLA</li>
+          <li>Shop Pay (+50% higher conversion)</li>
+          <li>Shopify Tax integration</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">📐 The Math</div>
+      <p class="callout-text">You're already paying for WooCommerce development that isn't working. Factor in ongoing developer costs ($2,000–5,000+/mo), hosting ($50–200/mo), security patches, and plugin maintenance. Shopify Plus at $2,300/mo replaces all of that with a managed platform — likely lower TCO over 2–3 years.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ADDITIONAL COSTS -->
+<section id="additional">
+  <div class="container">
+    <span class="section-badge">Budgeting</span>
+    <h2 class="section-title">What Else to Budget For</h2>
+    <p class="section-subtitle">Beyond the Shopify license — here's the full picture.</p>
+    <div class="additional-grid">
+      <div class="card">
+        <div class="additional-icon">🔗</div>
+        <div class="additional-title">Sage 300 Middleware</div>
+        <div class="additional-price">$100–$500/mo</div>
+        <p class="additional-desc">Options: Commercient SYNC, APPSeCONNECT, or Hutility. Bidirectional sync for inventory, pricing, orders, customers.</p>
+      </div>
+      <div class="card">
+        <div class="additional-icon">🏗️</div>
+        <div class="additional-title">Implementation Partner</div>
+        <div class="additional-price">$15K–$60K+ (one-time)</div>
+        <p class="additional-desc">Design, build, migration, integrations, training. Arctic Grey is currently being evaluated.</p>
+      </div>
+      <div class="card">
+        <div class="additional-icon">📦</div>
+        <div class="additional-title">Avalara (Tax)</div>
+        <div class="additional-price">Low / included</div>
+        <p class="additional-desc">Native Shopify app for real-time tax calculation. Supports exemption certificates for wholesale practitioners.</p>
+      </div>
+      <div class="card">
+        <div class="additional-icon">📧</div>
+        <div class="additional-title">Shopify Tax</div>
+        <div class="additional-price">0.25% per taxable order (capped $0.99)</div>
+        <p class="additional-desc">Free threshold for first $100K. $5,000/year cap. Most H&amp;A orders are wholesale (tax-exempt) — actual cost will be minimal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="container">
+    <span class="section-badge">Tier Comparison</span>
+    <h2 class="section-title">Why Plus Is the Right Tier</h2>
+    <p class="section-subtitle">With B2B features now on Advanced, here's why H&amp;A still needs Plus.</p>
+    <div class="comparison-table-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Requirement</th>
+            <th>Advanced ($399/mo)</th>
+            <th>Plus ($2,300/mo)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prop 65 Checkout Warnings</td>
+            <td><span class="cross">✕</span> No checkout extensibility</td>
+            <td><span class="check">✓</span> Checkout UI Extensions</td>
+          </tr>
+          <tr>
+            <td>B2B Catalogs</td>
+            <td>3 max (market-based)</td>
+            <td><span class="check">10,000</span> (company-level)</td>
+          </tr>
+          <tr>
+            <td>Catalog Assignment</td>
+            <td>Market-based only</td>
+            <td><span class="check">✓</span> Direct to companies &amp; locations</td>
+          </tr>
+          <tr>
+            <td>Deposits &amp; Partial Payments</td>
+            <td><span class="cross">✕</span> Not available</td>
+            <td><span class="check">✓</span> Native</td>
+          </tr>
+          <tr>
+            <td>Shopify Flow (Full)</td>
+            <td>Basic</td>
+            <td><span class="check">✓</span> Full — auto-approve, assign catalogs, trigger emails</td>
+          </tr>
+          <tr>
+            <td>API Limits (Sage 300 sync)</td>
+            <td>Standard</td>
+            <td><span class="check">✓</span> Higher throughput</td>
+          </tr>
+          <tr>
+            <td>Expansion Stores</td>
+            <td><span class="cross">✕</span> Not available</td>
+            <td><span class="check">✓</span> 9 included</td>
+          </tr>
+          <tr>
+            <td>Transaction Fees</td>
+            <td>2.4% + $0.30</td>
+            <td><span class="check">2.15%</span> + $0.30</td>
+          </tr>
+          <tr>
+            <td>Staff Accounts</td>
+            <td>15</td>
+            <td><span class="check">Unlimited</span></td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td>Standard (no phone)</td>
+            <td><span class="check">✓</span> 24/7 priority + phone + MSM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout-warning">
+      <div class="callout-title">⚠️ Deal-Breaker</div>
+      <p class="callout-text">Prop 65 compliance requires dynamic checkout warnings for California shipments. This uses Checkout UI Extensions — a Plus-only feature. On Advanced, this is not possible. For H&amp;A, this is a compliance blocker, not a nice-to-have.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="container">
+    <span class="section-badge">What's Next</span>
+    <h2 class="section-title">Getting Started</h2>
+    <p class="section-subtitle">Four steps to move from evaluation to build.</p>
+    <div class="steps-grid">
+      <div class="card">
+        <div class="step-number">1</div>
+        <div class="step-title">Partner Introductions</div>
+        <p class="step-desc">Meet Arctic Grey for implementation scoping.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">2</div>
+        <div class="step-title">Scoping Call</div>
+        <p class="step-desc">Map Sage 300 integration, hazmat shipping logic, Prop 65 checkout, WooCommerce migration.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">3</div>
+        <div class="step-title">Executive Read Back</div>
+        <p class="step-desc">Partner presents approach, timeline, and investment to Beth and David.</p>
+      </div>
+      <div class="card">
+        <div class="step-number">4</div>
+        <div class="step-title">Proposal Review</div>
+        <p class="step-desc">Formal SOW for approval before build begins.</p>
+      </div>
+    </div>
+    <div class="cta-box">
+      <p>Ready to move forward?</p>
+      <a href="mailto:gareth.cowan@shopify.com" class="email-btn">Email Gareth</a>
+      <div class="contact-info">gareth.cowan@shopify.com &nbsp;|&nbsp; 778-917-9299</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  Prepared by Gareth Cowan, Shopify Plus &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; Confidential
+</footer>
+
+<script>
+(function(){
+  const bar=document.getElementById('progressBar');
+  const pills=document.querySelectorAll('.nav-pills a');
+  const sections=document.querySelectorAll('section');
+
+  function update(){
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    const pct=h>0?(window.scrollY/h)*100:0;
+    bar.style.width=Math.min(pct,100)+'%';
+
+    let current='';
+    sections.forEach(s=>{
+      if(window.scrollY>=s.offsetTop-200) current=s.id;
+    });
+    pills.forEach(p=>{
+      p.classList.toggle('active',p.getAttribute('href')==='#'+current);
+    });
+  }
+
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>
