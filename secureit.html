@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SecureIt × Shopify Plus — Resources & Next Steps</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #00d4a1; --dark: #0a0a0a; --white: #fff; --gray-400: #9ca3af; --gray-600: #4b5563; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: var(--white); line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--gray-400); text-decoration: none; transition: all 0.2s; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .nav-cta:hover { background: #00a674; }
+
+  section { padding: 100px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,128,96,0.3), transparent); max-width: 1100px; margin: 0 auto; }
+
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+  .sub { font-size: 15px; color: var(--gray-400); margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero h1 span { background: linear-gradient(135deg, #00d4a1, #00a674); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: var(--gray-400); max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; transition: all 0.3s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); background: rgba(0,128,96,0.05); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray-400); }
+  .map-table td:first-child { color: var(--white); font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.04); }
+
+  .calc-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 32px; max-width: 700px; }
+  .calc-box label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-400); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .calc-box input { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: var(--white); font-size: 16px; font-family: 'Inter', sans-serif; margin-bottom: 20px; }
+  .calc-box input:focus { outline: none; border-color: var(--green); }
+  .calc-results { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .calc-result { background: rgba(0,128,96,0.08); border: 1px solid rgba(0,128,96,0.2); border-radius: 10px; padding: 16px; text-align: center; }
+  .calc-result .val { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 2px; }
+  .calc-result .lbl { font-size: 10px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+  .calc-breakdown { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px; margin-top: 12px; grid-column: 1/-1; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--accent); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+  .status-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .status-pending { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+  .status-done { background: rgba(0,128,96,0.15); color: var(--accent); border: 1px solid rgba(0,128,96,0.3); }
+
+  .cta-section { text-align: center; padding: 80px 60px 120px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: var(--gray-400); font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+  .cta-btn:hover { background: #00a674; transform: translateY(-2px); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .calc-results { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify Plus × SecureIt</div>
+  <div class="nav-pills">
+    <a href="#licensing" class="nav-pill">Licensing & Costs</a>
+    <a href="#calculator" class="nav-pill">Cost Calculator</a>
+    <a href="#included" class="nav-pill">What's Included</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Shopify Plus Resources — April 2026</div>
+  <h1>SecureIt × <span>Shopify Plus</span></h1>
+  <p>Everything you need to understand Shopify Plus licensing, costs, and what's included — built for your evaluation. Use the calculator below to estimate your all-in cost based on your projected revenue.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- LICENSING -->
+<section id="licensing">
+  <div class="label">Licensing & Costs</div>
+  <div class="title">Shopify Plus Pricing — Straightforward</div>
+  <div class="sub">One flat monthly fee. Payment processing on every transaction. No hidden charges, no hosting fees, no patching costs, no PCI compliance fees.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <h3>Platform Fee</h3>
+      <ul>
+        <li><strong>$2,300/month</strong> — flat subscription</li>
+        <li>Includes hosting, security, SSL, PCI compliance</li>
+        <li>Automatic platform updates at no cost</li>
+        <li>Up to 9 expansion stores included (e.g., SecureIt Garage Systems)</li>
+        <li>99.99% uptime SLA</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Payment Processing (Shopify Payments)</h3>
+      <ul>
+        <li><strong>2.25% + 30¢</strong> — standard consumer card (online)</li>
+        <li><strong>3.25% + 30¢</strong> — international cards</li>
+        <li><strong>2.95% + 30¢</strong> — premium / commercial & Amex</li>
+        <li><strong>2.25%</strong> — in-person (POS tap/chip/swipe)</li>
+        <li><strong>$15</strong> — chargeback fee (refunded if you win)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h3>What You Don't Pay</h3>
+      <ul>
+        <li>No hosting fees — included</li>
+        <li>No SSL certificate fees — included</li>
+        <li>No PCI compliance costs — included</li>
+        <li>No security patching costs — automatic</li>
+        <li>No separate payment gateway fee</li>
+        <li>No $30K surprise patch quotes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:28px;">
+    <table class="map-table">
+      <thead><tr><th>Transaction Type</th><th>Rate on Plus</th></tr></thead>
+      <tbody>
+        <tr><td>Standard consumer card (online)</td><td>2.25% + 30¢</td></tr>
+        <tr><td>International cards</td><td>3.25% + 30¢</td></tr>
+        <tr><td>Premium / Commercial & Amex</td><td>2.95% + 30¢</td></tr>
+        <tr><td>In-person (POS tap/chip/swipe)</td><td>2.25%</td></tr>
+        <tr><td>Third-party payment gateway (if not using Shopify Payments)</td><td>+0.2% surcharge</td></tr>
+        <tr><td>Revenue share (above ~$800K–$1.3M/mo GMV)</td><td>0.25% of GMV above threshold</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CALCULATOR -->
+<section id="calculator">
+  <div class="label">Cost Calculator</div>
+  <div class="title">Estimate Your All-In Monthly Cost</div>
+  <div class="sub">Enter your projected monthly online revenue and average order value to see your total Shopify Plus cost — platform fee + payment processing — broken down line by line.</div>
+
+  <div class="calc-box">
+    <label>Monthly Online Revenue (USD)</label>
+    <input type="text" id="calc-gmv" placeholder="e.g. 1,000,000" oninput="calculate()">
+    <label>Average Order Value (USD)</label>
+    <input type="text" id="calc-aov" placeholder="e.g. 350" oninput="calculate()">
+
+    <div class="calc-results">
+      <div class="calc-result"><div class="val" id="r-monthly">—</div><div class="lbl">Monthly Cost</div></div>
+      <div class="calc-result"><div class="val" id="r-annual">—</div><div class="lbl">Annual Cost</div></div>
+      <div class="calc-result"><div class="val" id="r-rate">—</div><div class="lbl">Effective Blended Rate</div></div>
+      <div class="calc-result"><div class="val" id="r-pertxn">—</div><div class="lbl">Cost Per Transaction</div></div>
+      <div class="calc-breakdown" id="r-breakdown">Enter your revenue above to see a line-by-line breakdown.</div>
+    </div>
+    <p style="margin-top:16px;font-size:11px;color:var(--gray-400);">Uses US standard consumer card rate (2.25% + 30¢). Does not include international card surcharges, apps, themes, or third-party services. For illustrative purposes only.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT'S INCLUDED -->
+<section id="included">
+  <div class="label">What's Included</div>
+  <div class="title">Everything You Get with Shopify Plus</div>
+  <div class="sub">No plugins to manage, no hosting to worry about, no developers needed for day-to-day operations.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🏪</div>
+      <h3>Up to 9 Expansion Stores</h3>
+      <p>Run SecureIt Gun Storage and SecureIt Garage Systems as separate storefronts under one account and one contract. Each gets its own domain, theme, catalog, and checkout.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>World-Class Mobile & Checkout</h3>
+      <p>Shopify's checkout is proven to convert better than any other platform. Shop Pay delivers 50% higher conversion with one-tap mobile purchasing — critical when 66% of your traffic is mobile.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>8,000+ App Ecosystem</h3>
+      <p>Fishbowl, QuickBooks, Affirm, Klaviyo, shipping carriers — if you need it, there's an integration. No custom code required for most connections.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎨</div>
+      <h3>Built for Non-Technical Teams</h3>
+      <p>Drag-and-drop theme editor, no developer needed for content updates. Pages look great on desktop and mobile simultaneously — no more image forcing or cut-off products.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h3>Enterprise Security & Uptime</h3>
+      <p>99.99% uptime SLA. PCI DSS Level 1 compliance included. Automatic security patches. DDoS protection via Cloudflare. Zero maintenance burden on your team.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🚀</div>
+      <h3>Shopify Payments Built In</h3>
+      <p>No separate payment gateway to manage. No outdated Stripe or PayPal plugins. Best-in-class rates at 2.25% + 30¢. Apple Pay, Google Pay, Shop Pay — all native.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Action Plan</div>
+  <div class="title">Next Steps</div>
+  <div class="sub">Here's what we agreed to on our call — the path from here to go-live.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Partner Selection</h4>
+      <p>Tom is meeting with 5 Shopify Plus implementation partners this week. Proposals expected within 4–5 days. Gareth will review SOWs and help evaluate fit.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">In Progress</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Fishbowl Integration</h4>
+      <p>Gareth to research Fishbowl ↔ Shopify integration options (order data sync to 3PL warehouses, inventory). Will report back on any gotchas or pre-built connectors.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Review Partner SOWs</h4>
+      <p>Once proposals are in, share the project brief and SOWs with Gareth. He'll review, flag any concerns, and help narrow down to the best-fit partner.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Finalize Shopify Plus Contract</h4>
+      <p>Once partner is selected, Gareth and Tom will sync to walk through the Shopify Plus proposal, finalize licensing, and get the contract in place so developers can start building.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px;">
+    <h3 style="font-size:16px; font-weight:700; margin-bottom:12px;">🎯 Target Timeline</h3>
+    <table class="map-table">
+      <tbody>
+        <tr><td>Partner proposals received</td><td>Early May 2026</td></tr>
+        <tr><td>Partner selected + Shopify contract signed</td><td>Mid May 2026</td></tr>
+        <tr><td>Build begins</td><td>Mid–Late May 2026</td></tr>
+        <tr><td>Target go-live</td><td>End of June 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Questions? Let's Talk.</h2>
+  <p>If you have any questions about licensing, costs, integrations, or next steps — reach out anytime.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com<br>
+  Confidential — prepared for SecureIt Tactical, Inc.
+</div>
+
+<script>
+function parseNum(id) {
+  return parseFloat(document.getElementById(id).value.replace(/[^0-9.]/g, '')) || 0;
+}
+function fmt(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
+  if (n >= 1000) return '$' + Math.round(n).toLocaleString('en-US');
+  return '$' + n.toFixed(0);
+}
+function calculate() {
+  const gmv = parseNum('calc-gmv');
+  const aov = parseNum('calc-aov') || 350;
+  if (gmv <= 0) {
+    document.getElementById('r-monthly').textContent = '—';
+    document.getElementById('r-annual').textContent = '—';
+    document.getElementById('r-rate').textContent = '—';
+    document.getElementById('r-pertxn').textContent = '—';
+    document.getElementById('r-breakdown').innerHTML = 'Enter your revenue above to see a line-by-line breakdown.';
+    return;
+  }
+  const platform = 2300;
+  const txns = Math.round(gmv / aov);
+  const pctFee = gmv * 0.0225;
+  const flatFee = txns * 0.30;
+  const processing = pctFee + flatFee;
+  const total = platform + processing;
+
+  document.getElementById('r-monthly').textContent = fmt(total) + '/mo';
+  document.getElementById('r-annual').textContent = fmt(total * 12) + '/yr';
+  document.getElementById('r-rate').textContent = (total / gmv * 100).toFixed(2) + '%';
+  document.getElementById('r-pertxn').textContent = '$' + (total / txns).toFixed(2);
+
+  let bd = '<div style="display:grid;grid-template-columns:1fr auto;gap:4px 20px;font-size:13px;color:var(--gray-400);">';
+  bd += '<div>Platform fee</div><div style="text-align:right;font-weight:600;color:var(--white);">$2,300</div>';
+  bd += '<div>Processing (2.25% × ' + fmt(gmv) + ')</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(pctFee) + '</div>';
+  bd += '<div>Per-transaction (30¢ × ' + txns.toLocaleString() + ' orders)</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(flatFee) + '</div>';
+  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;font-weight:700;color:var(--white);">Total monthly</div>';
+  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;text-align:right;font-weight:700;color:var(--accent);">' + fmt(total) + '/mo</div>';
+  bd += '</div>';
+  document.getElementById('r-breakdown').innerHTML = bd;
+}
+</script>
+</body>
+</html>
