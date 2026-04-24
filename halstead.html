@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Halstead Bead × Shopify Plus — Evaluation Summary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #00d4a1; --dark: #0a0a0a; --white: #fff; --gray-400: #9ca3af; --gray-600: #4b5563; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: var(--white); line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--gray-400); text-decoration: none; transition: all 0.2s; border: 1px solid transparent; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; }
+  .nav-cta:hover { background: #00a674; }
+
+  section { padding: 100px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  section:first-of-type { padding-top: 120px; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,128,96,0.3), transparent); max-width: 1100px; margin: 0 auto; }
+
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+  .sub { font-size: 15px; color: var(--gray-400); margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero h1 span { background: linear-gradient(135deg, #00d4a1, #00a674); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: var(--gray-400); max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px; }
+  .hero-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; text-align: center; }
+  .hero-stat .num { font-size: 26px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .hero-stat .lbl { font-size: 11px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; transition: all 0.3s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); background: rgba(0,128,96,0.05); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .info-block { margin-bottom: 28px; }
+  .info-block h4 { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+  .info-block p, .info-block li { font-size: 13px; color: var(--gray-400); line-height: 1.8; }
+  .info-block ul { list-style: none; padding: 0; }
+  .info-block ul li { padding: 3px 0; padding-left: 16px; position: relative; }
+  .info-block ul li::before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray-400); }
+  .map-table td:first-child { color: var(--white); font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.04); }
+
+  .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .resource-card { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px; text-decoration: none; color: var(--white); transition: all 0.2s; }
+  .resource-card:hover { border-color: rgba(0,128,96,0.5); background: rgba(0,128,96,0.06); transform: translateY(-2px); }
+  .resource-icon { font-size: 24px; flex-shrink: 0; }
+  .resource-label { font-size: 13px; font-weight: 600; }
+  .resource-type { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--accent); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  .status-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .status-pending { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+  .status-done { background: rgba(0,128,96,0.15); color: var(--accent); border: 1px solid rgba(0,128,96,0.3); }
+
+  .cta-section { text-align: center; padding: 80px 60px 120px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: var(--gray-400); font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+  .cta-btn:hover { background: #00a674; transform: translateY(-2px); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify Plus × Halstead Bead</div>
+  <div class="nav-pills">
+    <a href="#summary" class="nav-pill">Evaluation Summary</a>
+    <a href="#savings" class="nav-pill">Cost Savings</a>
+    <a href="#solution" class="nav-pill">Solution Fit</a>
+    <a href="#resources" class="nav-pill">Resources</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero" id="top">
+  <div class="hero-badge">Evaluation Summary — April 2026</div>
+  <h1>Halstead Bead × <span>Shopify Plus</span></h1>
+  <p>A summary of our evaluation so far — what we've learned about your business, the cost analysis, solution fit, and the resources we've shared with your team. Everything in one place.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">$5–7M</div><div class="lbl">Annual Revenue</div></div>
+    <div class="hero-stat"><div class="num">~$47K+</div><div class="lbl">Est. Annual Payment Savings</div></div>
+    <div class="hero-stat"><div class="num">~$21K+</div><div class="lbl">Est. Annual Platform Savings</div></div>
+    <div class="hero-stat"><div class="num">Q4 2026</div><div class="lbl">Target Launch</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- EVALUATION SUMMARY -->
+<section id="summary">
+  <div class="label">Evaluation Summary</div>
+  <div class="title">What We've Learned So Far</div>
+  <div class="sub">Through our discovery calls, reverse demo, and technical review with Jason and the team, here's what we understand about your business and what's driving this evaluation.</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">💸</div>
+      <h3>$30K Patch Quote Was the Breaking Point</h3>
+      <p>Znode quoted $30K for a minor version patch (v9.7 → v9.9). You're currently paying ~$3K/mo for the platform. The cost-to-value equation no longer makes sense.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧑‍💻</div>
+      <h3>One-Person IT Team</h3>
+      <p>Jason maintains the entire self-hosted Znode stack alone — ASP.NET MVC on SQL Server, custom integrations for tax (ZipTax), CMS (Butter), CDN (Cloudflare), and Braintree. Every change is a bottleneck.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <h3>Card Vaulting Without Pre-Auth</h3>
+      <p>Your payment flow is non-standard: Braintree vaults the card at checkout, then Sage X3 references the token later during fulfillment to charge. Shopify B2B's native card vaulting supports this workflow.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Sage X3 Integration</h3>
+      <p>Orders and customers push from website → ERP. Products, pricing, and inventory push from ERP → website. Two-way sync with Sage X3 is critical to your operations.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Wholesale + Retail Pricing Complexity</h3>
+      <p>Wholesale pricing is a discount off base retail, with quantity-based tiered pricing at both levels. Shopify B2B handles this with native price lists and quantity rules.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Purchase Approval Workflows</h3>
+      <p>Anyone can create a profile, but wholesale customers go through an application process. Shopify B2B company accounts with approval flows map directly to this requirement.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COST SAVINGS -->
+<section id="savings">
+  <div class="label">Cost Analysis</div>
+  <div class="title">Your Savings on Shopify Plus</div>
+  <div class="sub">Based on our review of your merchant statements and current platform costs, here's the financial picture.</div>
+
+  <div class="two-col">
+    <div>
+      <div class="info-block">
+        <h4>Current Platform Costs (Znode)</h4>
+        <ul>
+          <li>~$3,000/month platform licensing</li>
+          <li>$30K quoted for a single minor patch</li>
+          <li>Self-hosted infrastructure (servers, SQL Server, SSL, PCI)</li>
+          <li>Custom integrations maintained by Jason</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Shopify Plus</h4>
+        <ul>
+          <li>$2,300/month flat — all hosting, security, PCI, and updates included</li>
+          <li>No patching costs — Shopify updates automatically</li>
+          <li>Shopify Payments: 2.25% + 30¢ (online), 2.25% (in-person)</li>
+          <li>8,000+ apps for integrations — no custom code required</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="info-block">
+        <h4>Estimated Annual Savings</h4>
+        <ul>
+          <li><strong>~$47,000+/yr</strong> in payment processing savings</li>
+          <li><strong>~$21,000+/yr</strong> in platform cost savings</li>
+          <li>Eliminates $30K+ patch surprises</li>
+          <li>Frees Jason from infrastructure maintenance</li>
+        </ul>
+      </div>
+      <div class="info-block">
+        <h4>Detailed Analysis</h4>
+        <p>We reviewed your January–February merchant statements and built a detailed rate comparison. See the full breakdown in the resources below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOLUTION FIT -->
+<section id="solution">
+  <div class="label">Solution Fit</div>
+  <div class="title">How Shopify Plus Maps to Your Requirements</div>
+  <div class="sub">Every requirement from our discovery and reverse demo, mapped to the Shopify Plus capability.</div>
+
+  <table class="map-table">
+    <thead>
+      <tr><th>Your Requirement</th><th>Shopify Plus Capability</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Sage X3 two-way integration</td><td>GraphQL + REST APIs, certified Sage connectors available via partner</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Card vaulting without pre-auth</td><td>Native B2B card vaulting — vault card at checkout, charge later via API</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Wholesale vs. retail pricing</td><td>B2B price lists with percentage-off or fixed pricing, quantity rules</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Purchase approval workflows</td><td>B2B company accounts with buyer roles and approval flows</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Tax exemption handling</td><td>Tax exemption per company account — native B2B feature</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>5-decimal pricing (ERP internal)</td><td>Shopify displays 2 decimals, ERP can maintain 5 internally via API sync</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Klaviyo integration</td><td>Native Shopify + Klaviyo integration — best-in-class</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>FedEx + UPS shipping</td><td>Native carrier-calculated rates, Shopify Shipping discounts</td><td><span class="status-tag status-done">Validated</span></td></tr>
+      <tr><td>Partner for build/migration</td><td>Makro Agency scoping — SOW in progress</td><td><span class="status-tag status-pending">In Progress</span></td></tr>
+      <tr><td>Launch before BFCM Q4 2026</td><td>Typical Plus migration: 8–12 weeks with partner</td><td><span class="status-tag status-done">Feasible</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="label">Resources</div>
+  <div class="title">Everything From Our Evaluation</div>
+  <div class="sub">All documents, recordings, and analysis from our conversations — in one place.</div>
+
+  <div style="margin-bottom:28px;">
+    <div class="label" style="margin-bottom:14px; color: var(--white); font-size:13px; font-weight:700;">📊 Cost & Financial Analysis</div>
+    <div class="resource-grid">
+      <a href="https://docs.google.com/presentation/d/1_GbVAwuYASdX7zbXW8SPIPpvFvnBL1BgfugJhRPoyaw/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">💰</div>
+        <div><div class="resource-label">Total Cost Savings Deck</div><div class="resource-type">Shopify Plus vs. Znode — prepared for Brad (Finance)</div></div>
+      </a>
+      <a href="https://docs.google.com/spreadsheets/d/1AcRJhOSqN_zNU9MAuSBHBJotBlDuxmmHZXmkNRtautc/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">📋</div>
+        <div><div class="resource-label">Payment Rate Comparison (Detailed)</div><div class="resource-type">Merchant statement analysis — Jan/Feb transaction data</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div class="label" style="margin-bottom:14px; color: var(--white); font-size:13px; font-weight:700;">🎥 Call Recordings & Notes</div>
+    <div class="resource-grid">
+      <a href="https://drive.google.com/file/d/1u0IJxLyynYveQKV9og2jZ4A2ICOTQzTM/view" target="_blank" class="resource-card">
+        <div class="resource-icon">🎬</div>
+        <div><div class="resource-label">Reverse Demo Recording</div><div class="resource-type">March 24 — Znode workflow walkthrough</div></div>
+      </a>
+      <a href="https://drive.google.com/file/d/1EbdCrAz9DErYyiGMtptlNZMX6OTSheMK/view" target="_blank" class="resource-card">
+        <div class="resource-icon">🎬</div>
+        <div><div class="resource-label">Shopify B2B Demo Recording</div><div class="resource-type">April 1 — B2B features, pricing, checkout demo</div></div>
+      </a>
+      <a href="https://docs.google.com/document/d/1Hv3FNHlSddZLBwS7HCf56IlUkGclNO0S43KzG1BcJ04/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">📝</div>
+        <div><div class="resource-label">B2B Demo Notes (Gemini)</div><div class="resource-type">April 1 — auto-generated meeting notes</div></div>
+      </a>
+      <a href="https://docs.google.com/document/d/1WFNcyNbLouFXgrMZSWU1i7glA9Z9Hl52BwfeQDPVHm8/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">📝</div>
+        <div><div class="resource-label">Reverse Demo Notes (Gemini)</div><div class="resource-type">March 24 — auto-generated meeting notes</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div class="label" style="margin-bottom:14px; color: var(--white); font-size:13px; font-weight:700;">📄 Presentations & Briefings</div>
+    <div class="resource-grid">
+      <a href="https://docs.google.com/presentation/d/12r6DFM09zmxbITgd9g0NTfXJfSLjlXbHfR48Ygzquts/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">📊</div>
+        <div><div class="resource-label">Demo Presentation Deck</div><div class="resource-type">Shopify Plus B2B capabilities overview</div></div>
+      </a>
+      <a href="https://docs.google.com/document/d/1jVzsSIkymwaJOA6FqQP0ko0zO9OQpGKz1tpgGneo1Lg/edit" target="_blank" class="resource-card">
+        <div class="resource-icon">📝</div>
+        <div><div class="resource-label">Discovery Call Notes</div><div class="resource-type">Initial discovery — requirements and pain points</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Action Plan</div>
+  <div class="title">Outstanding Items & Next Steps</div>
+  <div class="sub">Here's what needs to happen to get to a final decision and kick off the migration.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Finalized SOW from Partner</h4>
+      <p>Makro is scoping the migration build. Once the SOW is finalized, we'll have a clear timeline, cost, and deliverables for the implementation.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Znode Contract Confirmation</h4>
+      <p>We need to confirm your Znode contract renewal/expiry terms. If there's overlap, we can explore waiving Shopify Plus licensing fees for a few months to bridge the migration gap — eliminating double-platform costs.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Present Final Proposal</h4>
+      <p>Once the SOW and contract terms are clear, we'll present a final proposal to Jason and Brad with the complete picture — platform costs, migration timeline, partner fees, and projected savings.</p>
+      <div style="margin-top:12px;"><span class="status-tag status-pending">Pending</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Questions? Let's Talk.</h2>
+  <p>If you have any questions about the evaluation, the cost analysis, or next steps — reach out anytime.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com<br>
+  Confidential — prepared for Halstead Bead, Inc.
+</div>
+
+</body>
+</html>
