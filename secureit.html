@@ -178,12 +178,33 @@
     <label>Average Order Value (USD)</label>
     <input type="text" id="calc-aov" placeholder="e.g. 350" oninput="calculate()">
 
-    <div class="calc-results">
-      <div class="calc-result"><div class="val" id="r-monthly">—</div><div class="lbl">Monthly Cost</div></div>
-      <div class="calc-result"><div class="val" id="r-annual">—</div><div class="lbl">Annual Cost</div></div>
-      <div class="calc-result"><div class="val" id="r-rate">—</div><div class="lbl">Effective Blended Rate</div></div>
-      <div class="calc-result"><div class="val" id="r-pertxn">—</div><div class="lbl">Cost Per Transaction</div></div>
+    <div style="margin-top:8px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Shopify Plus Platform Fee</div>
+      <div class="calc-results" style="margin-bottom:24px;">
+        <div class="calc-result"><div class="val">$2,300</div><div class="lbl">Monthly Platform Fee</div></div>
+        <div class="calc-result"><div class="val">$27,600</div><div class="lbl">Annual Platform Fee</div></div>
+      </div>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:28px;line-height:1.6;">This is your Shopify Plus subscription — includes hosting, security, PCI compliance, automatic updates, up to 9 expansion stores, and 99.99% uptime SLA. This is <strong style="color:var(--white);">the only fee you pay to Shopify for the platform</strong>.</p>
+
+      <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:24px;"></div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#f59e0b;margin-bottom:10px;">Credit Card Processing Fees</div>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:16px;line-height:1.6;">These are payment processing fees charged on every credit card transaction — the same type of fee you'd pay on <em>any</em> platform (WooCommerce + Stripe, BigCommerce, etc.). On Plus, you get the lowest rates Shopify offers.</p>
+      <div class="calc-results" style="margin-bottom:12px;">
+        <div class="calc-result" style="border-color:rgba(245,158,11,0.2);background:rgba(245,158,11,0.06);"><div class="val" style="color:#f59e0b;" id="r-processing-mo">—</div><div class="lbl">Monthly Processing Fees</div></div>
+        <div class="calc-result" style="border-color:rgba(245,158,11,0.2);background:rgba(245,158,11,0.06);"><div class="val" style="color:#f59e0b;" id="r-processing-yr">—</div><div class="lbl">Annual Processing Fees</div></div>
+      </div>
       <div class="calc-breakdown" id="r-breakdown">Enter your revenue above to see a line-by-line breakdown.</div>
+
+      <div style="height:1px;background:rgba(255,255,255,0.08);margin:24px 0;"></div>
+
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);margin-bottom:10px;">Combined Total</div>
+      <div class="calc-results">
+        <div class="calc-result"><div class="val" id="r-monthly">—</div><div class="lbl">Total Monthly (Platform + Processing)</div></div>
+        <div class="calc-result"><div class="val" id="r-annual">—</div><div class="lbl">Total Annual (Platform + Processing)</div></div>
+        <div class="calc-result"><div class="val" id="r-rate">—</div><div class="lbl">Effective Blended Rate</div></div>
+        <div class="calc-result"><div class="val" id="r-pertxn">—</div><div class="lbl">Cost Per Transaction</div></div>
+      </div>
     </div>
     <p style="margin-top:16px;font-size:11px;color:var(--gray-400);">Uses US standard consumer card rate (2.25% + 30¢). Does not include international card surcharges, apps, themes, or third-party services. For illustrative purposes only.</p>
   </div>
@@ -305,11 +326,13 @@ function calculate() {
   const gmv = parseNum('calc-gmv');
   const aov = parseNum('calc-aov') || 350;
   if (gmv <= 0) {
+    document.getElementById('r-processing-mo').textContent = '—';
+    document.getElementById('r-processing-yr').textContent = '—';
     document.getElementById('r-monthly').textContent = '—';
     document.getElementById('r-annual').textContent = '—';
     document.getElementById('r-rate').textContent = '—';
     document.getElementById('r-pertxn').textContent = '—';
-    document.getElementById('r-breakdown').innerHTML = 'Enter your revenue above to see a line-by-line breakdown.';
+    document.getElementById('r-breakdown').innerHTML = 'Enter your revenue above to see a line-by-line breakdown of processing fees.';
     return;
   }
   const platform = 2300;
@@ -319,17 +342,18 @@ function calculate() {
   const processing = pctFee + flatFee;
   const total = platform + processing;
 
+  document.getElementById('r-processing-mo').textContent = fmt(processing) + '/mo';
+  document.getElementById('r-processing-yr').textContent = fmt(processing * 12) + '/yr';
   document.getElementById('r-monthly').textContent = fmt(total) + '/mo';
   document.getElementById('r-annual').textContent = fmt(total * 12) + '/yr';
   document.getElementById('r-rate').textContent = (total / gmv * 100).toFixed(2) + '%';
   document.getElementById('r-pertxn').textContent = '$' + (total / txns).toFixed(2);
 
   let bd = '<div style="display:grid;grid-template-columns:1fr auto;gap:4px 20px;font-size:13px;color:var(--gray-400);">';
-  bd += '<div>Platform fee</div><div style="text-align:right;font-weight:600;color:var(--white);">$2,300</div>';
-  bd += '<div>Processing (2.25% × ' + fmt(gmv) + ')</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(pctFee) + '</div>';
-  bd += '<div>Per-transaction (30¢ × ' + txns.toLocaleString() + ' orders)</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(flatFee) + '</div>';
-  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;font-weight:700;color:var(--white);">Total monthly</div>';
-  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;text-align:right;font-weight:700;color:var(--accent);">' + fmt(total) + '/mo</div>';
+  bd += '<div>Percentage fee (2.25% × ' + fmt(gmv) + ')</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(pctFee) + '</div>';
+  bd += '<div>Per-transaction fee (30¢ × ' + txns.toLocaleString() + ' orders)</div><div style="text-align:right;font-weight:600;color:var(--white);">' + fmt(flatFee) + '</div>';
+  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;font-weight:700;color:var(--white);">Total processing</div>';
+  bd += '<div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:8px;margin-top:8px;text-align:right;font-weight:700;color:#f59e0b;">' + fmt(processing) + '/mo</div>';
   bd += '</div>';
   document.getElementById('r-breakdown').innerHTML = bd;
 }
