@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BBSpro × Shopify Plus — Proposal Summary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #00d4a1; --white: #fff; --gray-400: #9ca3af; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0d0d0d; color: var(--white); line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: var(--gray-400); text-decoration: none; transition: all 0.2s; }
+  .nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; }
+
+  section { padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,128,96,0.3), transparent); max-width: 1100px; margin: 0 auto; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+  .sub { font-size: 15px; color: var(--gray-400); margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; }
+  .hero h1 span { background: linear-gradient(135deg, #00d4a1, #00a674); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: var(--gray-400); max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .hero-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; text-align: center; }
+  .hero-stat .num { font-size: 26px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .hero-stat .lbl { font-size: 11px; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; }
+  .card:hover { border-color: rgba(0,128,96,0.4); background: rgba(0,128,96,0.05); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--gray-400); }
+  .map-table td:first-child { color: var(--white); font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.04); }
+
+  .price-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .price-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 28px; text-align: center; }
+  .price-card.hl { border-color: rgba(0,128,96,0.5); background: rgba(0,128,96,0.06); }
+  .price-card .price { font-size: 32px; font-weight: 900; color: var(--accent); margin-bottom: 4px; }
+  .price-card .period { font-size: 12px; color: var(--gray-400); margin-bottom: 16px; }
+  .price-card .desc { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
+  .price-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.15); border: 1px solid rgba(0,128,96,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--accent); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  .cta-section { text-align: center; padding: 80px 60px 100px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: var(--gray-400); font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: rgba(255,255,255,0.3); border-top: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .price-cards { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify Plus × BBSpro</div>
+  <div class="nav-pills">
+    <a href="#costs" class="nav-pill">Costs</a>
+    <a href="#partner" class="nav-pill">Partner SOW</a>
+    <a href="#integrations" class="nav-pill">Integrations</a>
+    <a href="#timeline" class="nav-pill">Timeline</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Proposal Summary — April 2026</div>
+  <h1>BBSpro × <span>Shopify Plus</span></h1>
+  <p>Your complete picture — Shopify Plus licensing, partner implementation costs, integrations, timeline, and next steps to replace Wave Commerce and Sage with a modern B2B wholesale portal.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">~450</div><div class="lbl">B2B Accounts</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="lbl">Pricing Tiers</div></div>
+    <div class="hero-stat"><div class="num">14–16</div><div class="lbl">Week Build</div></div>
+    <div class="hero-stat"><div class="num">EOY</div><div class="lbl">Target Go-Live</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- COSTS -->
+<section id="costs">
+  <div class="label">Investment Breakdown</div>
+  <div class="title">Total Project Costs</div>
+  <div class="sub">Two separate investments: your Shopify Plus platform subscription (ongoing) and the partner implementation (one-time). All figures in CAD.</div>
+
+  <div class="price-cards">
+    <div class="price-card hl">
+      <h4>Shopify Plus Platform</h4>
+      <div class="price">$3,200</div>
+      <div class="period">CAD / month (ongoing)</div>
+      <div class="desc">Includes hosting, security, PCI compliance, automatic updates, and up to 9 expansion stores. Billed monthly. No hidden fees.</div>
+    </div>
+    <div class="price-card hl">
+      <h4>Partner Implementation</h4>
+      <div class="price">$33,500</div>
+      <div class="period">CAD one-time (Ecomm Guys)</div>
+      <div class="desc">Storefront design, B2B portal, product/customer migration, integrations (Katana, HubSpot), training, QA, and launch support.</div>
+    </div>
+    <div class="price-card">
+      <h4>Year 1 Total</h4>
+      <div class="price">~$71,900</div>
+      <div class="period">CAD (platform + build)</div>
+      <div class="desc">$3,200/mo × 12 = $38,400 platform + $33,500 implementation. After year 1, ongoing cost is $3,200/mo platform only.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;">
+    <div class="label" style="color:var(--white);font-size:13px;font-weight:700;">Shopify Payments — Transaction Fees (CAD Rates)</div>
+    <p style="font-size:13px;color:var(--gray-400);margin:8px 0 16px;line-height:1.6;">These are credit card processing fees on every transaction — the same type of fee you'd pay on any platform. On Plus, you get the lowest rates Shopify offers.</p>
+    <table class="map-table">
+      <thead><tr><th>Transaction Type</th><th>Rate on Plus (CAD)</th></tr></thead>
+      <tbody>
+        <tr><td>Online credit card</td><td>2.15% + 30¢</td></tr>
+        <tr><td>American Express (online)</td><td>2.15% + 30¢</td></tr>
+        <tr><td>In-person (POS)</td><td>1.6%</td></tr>
+        <tr><td>Net payment terms (B2B)</td><td>No processing fee at order — charged when payment is collected</td></tr>
+        <tr><td>Third-party gateway (if not using Shopify Payments)</td><td>+0.2% surcharge</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PARTNER SOW -->
+<section id="partner">
+  <div class="label">Partner Implementation</div>
+  <div class="title">Ecomm Guys — Scope of Work</div>
+  <div class="sub">Ecomm Guys is a Shopify Premier Partner (top 3% worldwide). Here's what their $33,500 CAD implementation covers.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🎨</div>
+      <h3>Storefront Design & Build</h3>
+      <ul>
+        <li>Custom theme design and development</li>
+        <li>Public catalog with gated pricing (visible products, pricing behind login)</li>
+        <li>Mobile-optimized, built for conversion</li>
+        <li>D2C-ready — can be activated later without rebuilding</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏢</div>
+      <h3>B2B Wholesale Portal</h3>
+      <ul>
+        <li>~450 company accounts (hospitality) + 7–8 distribution accounts</li>
+        <li>8 collection-based pricing tiers + bespoke catalogs for distribution/private label</li>
+        <li>Net 30/60/90 payment terms per customer</li>
+        <li>Vaulted credit cards for repeat purchasing</li>
+        <li>Quick order lists and reorder from previous purchases</li>
+        <li>Sales rep ordering on behalf of customers</li>
+        <li>SDS/TDS document display per product</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h3>Data Migration</h3>
+      <ul>
+        <li>Product catalog migration from Sage</li>
+        <li>Customer records migration (B2B Wave + Sage)</li>
+        <li>Order history migration</li>
+        <li>SDS/TDS document association to products</li>
+        <li>SEO redirect mapping</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>Integration Setup</h3>
+      <ul>
+        <li>Katana (inventory, fulfillment, manufacturing)</li>
+        <li>HubSpot (CRM, customer data, sales pipeline)</li>
+        <li>Shopify Payments (credit cards, net terms, vaulting)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <h3>Training & Launch</h3>
+      <ul>
+        <li>Team training on Shopify admin, B2B management, order processing</li>
+        <li>QA and testing across all workflows</li>
+        <li>Go-live support and post-launch handoff</li>
+        <li>Platform designed to be self-manageable by your 15-person team</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <h3>Payment Schedule</h3>
+      <ul>
+        <li><strong>50%</strong> ($16,750) — at contract signing</li>
+        <li><strong>25%</strong> ($8,375) — at design approval</li>
+        <li><strong>25%</strong> ($8,375) — pre-launch</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <a href="https://bbspro.ecommguys.co/" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,128,96,0.1);border:1px solid rgba(0,128,96,0.3);padding:12px 20px;border-radius:10px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600;">📄 View Full Partner Proposal → bbspro.ecommguys.co</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <div class="label">Connected Systems</div>
+  <div class="title">Your Future Tech Stack</div>
+  <div class="sub">Replacing Sage + Wave Commerce + paper forms with an integrated, automated system.</div>
+
+  <table class="map-table">
+    <thead><tr><th>System</th><th>Purpose</th><th>Integration</th></tr></thead>
+    <tbody>
+      <tr><td>Shopify Plus</td><td>B2B wholesale portal + future D2C storefront</td><td>Your new commerce platform</td></tr>
+      <tr><td>Katana</td><td>Inventory management, fulfillment, manufacturing</td><td>Native Shopify integration — orders, stock, fulfillment sync two-way</td></tr>
+      <tr><td>QuickBooks</td><td>Accounting & invoicing</td><td>Native Shopify integration — orders and payments sync automatically</td></tr>
+      <tr><td>HubSpot</td><td>CRM, customer data, sales pipeline</td><td>Native Shopify integration — contacts and orders sync two-way</td></tr>
+      <tr><td>Shopify Payments</td><td>Credit card processing + net terms</td><td>Built into Shopify — vaulted cards, net 30/60/90, no paper forms</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:24px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px;">
+    <h3 style="font-size:14px; font-weight:700; margin-bottom:8px;">What This Replaces</h3>
+    <table class="map-table">
+      <thead><tr><th>Today</th><th>After Launch</th></tr></thead>
+      <tbody>
+        <tr><td>Sage 100 (ERP)</td><td>Katana + QuickBooks</td></tr>
+        <tr><td>Wave Commerce (B2B ordering)</td><td>Shopify Plus B2B portal</td></tr>
+        <tr><td>WordPress (marketing site)</td><td>Shopify Plus storefront (one platform, one domain)</td></tr>
+        <tr><td>Paper credit card forms + CSV uploads</td><td>Shopify Payments (online checkout, vaulted cards)</td></tr>
+        <tr><td>Manual order re-entry into Sage</td><td>Automated: Shopify → Katana → QuickBooks</td></tr>
+        <tr><td>No CRM</td><td>HubSpot (synced with Shopify)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="label">Project Timeline</div>
+  <div class="title">14–16 Weeks to Launch</div>
+  <div class="sub">From contract signing to go-live.</div>
+
+  <table class="map-table">
+    <thead><tr><th>Phase</th><th>Duration</th><th>What Happens</th></tr></thead>
+    <tbody>
+      <tr><td>1. Onboarding & Kickoff</td><td>Week 1–2</td><td>Technical requirements, access credentials, team alignment</td></tr>
+      <tr><td>2. Design</td><td>Week 3–5</td><td>Storefront design, B2B portal UX, mobile optimization</td></tr>
+      <tr><td>3. Build & Migration</td><td>Week 6–10</td><td>Theme development, B2B configuration, product/customer data migration, integration setup</td></tr>
+      <tr><td>4. QA & Testing</td><td>Week 11–13</td><td>End-to-end testing, B2B workflows, payment flows, integration validation</td></tr>
+      <tr><td>5. Training & Launch</td><td>Week 14–16</td><td>Team training, final review, domain connection, go-live</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Next Steps</div>
+  <div class="title">Moving Forward</div>
+  <div class="sub">Three steps to get the project started.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Review & Approve Proposal</h4>
+      <p>Review this summary and the <a href="https://bbspro.ecommguys.co/" target="_blank" style="color:var(--accent);">full partner proposal</a>. Confirm alignment on scope, costs, and outcomes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Shopify Plus Agreement</h4>
+      <p>Complete Shopify Plus contracting with Gareth to activate your account and confirm platform access. $3,200 CAD/month.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Ecomm Guys Agreement</h4>
+      <p>Sign the MSA/SOW with Ecomm Guys. First payment ($16,750 CAD / 50%) invoiced at signing. Build timeline begins.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Kickoff</h4>
+      <p>Ecomm Guys gathers requirements, credentials, and aligns your team. Design phase begins within the first two weeks.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Ready to Move Forward?</h2>
+  <p>Questions about the proposal, licensing, or next steps — reach out anytime.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com<br>
+  Partner: Ecomm Guys (Shopify Premier Partner) · mitch@theecommguys.com<br>
+  Confidential — prepared for BBSpro Services Inc.
+</div>
+
+</body>
+</html>
