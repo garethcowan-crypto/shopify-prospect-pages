@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lipman Brothers × Shopify Plus — Discovery Summary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #008060; --white: #0f172a; --gray-400: #64748b; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: #0f172a; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: #64748b; text-decoration: none; transition: all 0.2s; }
+  .nav-pill:hover { color: #0f172a; background: rgba(0,0,0,0.04); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; transition: box-shadow 0.2s; }
+  .nav-cta:hover { box-shadow: 0 2px 8px rgba(0,128,96,0.3); }
+
+  section { padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, #e5e7eb, transparent); max-width: 1100px; margin: 0 auto; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: #0f172a; }
+  .sub { font-size: 15px; color: #64748b; margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.07); border: 1px solid rgba(0,128,96,0.2); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; color: #0f172a; }
+  .hero h1 span { background: linear-gradient(135deg, #00a674, #008060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: #64748b; max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .hero-stat { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .hero-stat .num { font-size: 26px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 4px; }
+  .hero-stat .lbl { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color 0.2s, box-shadow 0.2s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #0f172a; }
+  .card p, .card li { font-size: 13px; color: #64748b; line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-size: 12px; }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 2px solid #e5e7eb; }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #64748b; }
+  .map-table td:first-child { color: #0f172a; font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.03); }
+
+  .fit-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; }
+  .fit-native { background: rgba(0,128,96,0.1); color: #008060; }
+  .fit-app { background: rgba(99,102,241,0.1); color: #6366f1; }
+  .fit-custom { background: rgba(245,158,11,0.1); color: #d97706; }
+  .fit-gap { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.1); border: 2px solid rgba(0,128,96,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--green); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+  .step p { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+  .cta-section { text-align: center; padding: 80px 60px 100px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; color: #0f172a; }
+  .cta-section p { color: #64748b; font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: box-shadow 0.2s; }
+  .cta-btn:hover { box-shadow: 0 4px 16px rgba(0,128,96,0.3); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: #94a3b8; background: #f1f5f9; border-top: 1px solid #e5e7eb; }
+
+  .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .resource-card { display: flex; align-items: center; gap: 16px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .resource-card:hover { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .resource-icon { font-size: 28px; flex-shrink: 0; }
+  .resource-card h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
+  .resource-card p { font-size: 12px; color: #64748b; line-height: 1.5; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify Plus × Lipman Brothers</div>
+  <div class="nav-pills">
+    <a href="#challenges" class="nav-pill">What We Heard</a>
+    <a href="#solution" class="nav-pill">Solution Fit</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+    <a href="#resources" class="nav-pill">Resources</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Discovery Summary — April 2026</div>
+  <h1>Lipman Brothers × <span>Shopify Plus</span></h1>
+  <p>A summary of our discovery conversation with Buck, covering your current challenges, requirements, and how Shopify Plus can replace Provi with an owned B2B digital ordering channel.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">7,000+</div><div class="lbl">Licensed Customers</div></div>
+    <div class="hero-stat"><div class="num">10,000</div><div class="lbl">Active SKUs</div></div>
+    <div class="hero-stat"><div class="num">200+</div><div class="lbl">Employees</div></div>
+    <div class="hero-stat"><div class="num">1939</div><div class="lbl">Est.</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHAT WE HEARD -->
+<section id="challenges">
+  <div class="label">Discovery Findings</div>
+  <div class="title">What We Heard</div>
+  <div class="sub">Key challenges surfaced during our conversation with Buck about Lipman Brothers' current digital ordering and operations.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Provi Controls the Relationship</h3>
+      <p>Provi is a marketplace, not your channel. They control ad placement, search ranking, and brand visibility. Competitors are on the same platform. You lose the customer relationship.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔌</div>
+      <h3>Zero ERP Integration</h3>
+      <p>Provi sends orders as emails. No sync with Dynamics GP or Pocket Advantage. Every order gets manually re-entered.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💲</div>
+      <h3>Owner Blocks Tiered Pricing</h3>
+      <p>Only frontline (highest) pricing is shown on Provi because the owner doesn't want competitors seeing discounted rates. This kills ecommerce utility.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📟</div>
+      <h3>Outdated Order Entry</h3>
+      <p>Pocket Advantage is from the 90s. No integration with Provi or the ERP. Sales reps are hog-tied by a system that can't keep up.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>Digital Experience Gap</h3>
+      <p>Gen Z buyers want self-service. Bar and restaurant owners want to reorder at 2am after close. Competition is beating you on digital.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📉</div>
+      <h3>Low Digital Adoption</h3>
+      <p>Only 390 of 7,000 customers (5%) use Provi. Only 1,600 of 10,000 SKUs listed. ~$2.5M estimated GMV through the platform.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SOLUTION FIT -->
+<section id="solution">
+  <div class="label">Platform Capabilities</div>
+  <div class="title">How Shopify Plus Solves This</div>
+  <div class="sub">Mapping your requirements to native Shopify Plus B2B capabilities, app ecosystem solutions, and areas requiring custom work.</div>
+
+  <table class="map-table">
+    <thead>
+      <tr><th>Requirement</th><th>Shopify Plus Fit</th><th>Details</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gated pricing / no public access</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Login required to see any pricing. Products visible or hidden, your choice.</td>
+      </tr>
+      <tr>
+        <td>Multi-catalog by license type</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Separate catalogs for on-premise, off-premise, military, by license (beer/wine/spirits/THC).</td>
+      </tr>
+      <tr>
+        <td>Regional product gating</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Control which SKUs are available by county or distribution agreement.</td>
+      </tr>
+      <tr>
+        <td>Customer self-service portal</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Order history, open invoices, payment status, reorder.</td>
+      </tr>
+      <tr>
+        <td>Rep-assisted ordering</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Reps log in, see their book of business, place orders on behalf of accounts.</td>
+      </tr>
+      <tr>
+        <td>Order approval / draft review</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Orders submit as drafts for review before fulfillment. Winter '26 update adds rule-based review.</td>
+      </tr>
+      <tr>
+        <td>ACH / net terms</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>1% capped at $7.50. Net 30/60/90 at checkout. PO-based ordering.</td>
+      </tr>
+      <tr>
+        <td>Mix-and-match deals</td>
+        <td><span class="fit-tag fit-app">Via App</span></td>
+        <td>5-case deal with specific combinations supported through Simple Bundles or MultiVariants.</td>
+      </tr>
+      <tr>
+        <td>Language auto-detection</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>Browser detects Spanish, redirects to Spanish version automatically.</td>
+      </tr>
+      <tr>
+        <td>Open API for PowerBI</td>
+        <td><span class="fit-tag fit-native">Native</span></td>
+        <td>GraphQL + REST. Pull any data into PowerBI dashboards.</td>
+      </tr>
+      <tr>
+        <td>ERP integration (Dynamics GP)</td>
+        <td><span class="fit-tag fit-custom">Custom</span></td>
+        <td>Middleware (Celigo) or direct API. Native connectors exist if you move to Business Central or NetSuite.</td>
+      </tr>
+      <tr>
+        <td>TN ABC license verification</td>
+        <td><span class="fit-tag fit-gap">Gap</span></td>
+        <td>Custom app or Flow-based enforcement needed during customer onboarding.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Path Forward</div>
+  <div class="title">Next Steps</div>
+  <div class="sub">From demo to pilot — here's the path to getting Lipman Brothers on Shopify Plus.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Platform Demo</h4>
+      <p><strong style="color:var(--accent);">May 14</strong> — Walk through the gated B2B portal, multi-catalog pricing, rep ordering, ACH/net terms, and order approval workflow.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Executive Presentation</h4>
+      <p><strong style="color:var(--accent);">May 18</strong> — Buck presents to Jinger Rainwater (EVP Sales) with demo recordings and platform summary.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Internal Decision</h4>
+      <p><strong style="color:var(--accent);">June / July</strong> — Team aligns on direction. ERP integration path confirmed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>East Tennessee Pilot</h4>
+      <p><strong style="color:var(--accent);">Spring 2027</strong> — Launch with smaller East TN division first. Full rollout follows.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="label">Reference Materials</div>
+  <div class="title">Resources</div>
+  <div class="sub">Demo recordings, briefing documents, and contact information.</div>
+
+  <div class="resource-grid">
+    <a href="#" class="resource-card">
+      <div class="resource-icon">🎥</div>
+      <div>
+        <h4>Demo Recording</h4>
+        <p>Platform walkthrough covering the B2B portal, pricing, and order workflows. Link available after the May 14 demo.</p>
+      </div>
+    </a>
+    <a href="#" class="resource-card">
+      <div class="resource-icon">📄</div>
+      <div>
+        <h4>SE Briefing Document</h4>
+        <p>Internal discovery notes and technical requirements summary prepared for the solutions engineering team.</p>
+      </div>
+    </a>
+    <a href="mailto:gareth.cowan@shopify.com" class="resource-card">
+      <div class="resource-icon">💬</div>
+      <div>
+        <h4>Contact Gareth</h4>
+        <p>gareth.cowan@shopify.com — Questions about Shopify Plus, pricing, or next steps.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Questions? Let's Talk.</h2>
+  <p>Reach out anytime to discuss Shopify Plus, integration options, or next steps for Lipman Brothers.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com<br>
+  Confidential — prepared for Lipman Brothers, LLC.
+</div>
+
+</body>
+</html>

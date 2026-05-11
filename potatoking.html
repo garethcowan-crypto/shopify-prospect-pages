@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Potato King × Shopify Plus — Discovery Summary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #008060; --white: #0f172a; --gray-400: #64748b; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: #0f172a; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: #64748b; text-decoration: none; transition: all 0.2s; }
+  .nav-pill:hover { color: #0f172a; background: rgba(0,0,0,0.04); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; transition: box-shadow 0.2s; }
+  .nav-cta:hover { box-shadow: 0 2px 8px rgba(0,128,96,0.3); }
+
+  section { padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, #e5e7eb, transparent); max-width: 1100px; margin: 0 auto; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: #0f172a; }
+  .sub { font-size: 15px; color: #64748b; margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.07); border: 1px solid rgba(0,128,96,0.2); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; color: #0f172a; }
+  .hero h1 span { background: linear-gradient(135deg, #00a674, #008060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: #64748b; max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .hero-stat { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .hero-stat .num { font-size: 26px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 4px; }
+  .hero-stat .lbl { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color 0.2s, box-shadow 0.2s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #0f172a; }
+  .card p, .card li { font-size: 13px; color: #64748b; line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-size: 12px; }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 2px solid #e5e7eb; }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #64748b; }
+  .map-table td:first-child { color: #0f172a; font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.03); }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.1); border: 2px solid rgba(0,128,96,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--green); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+  .step p { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+  .cta-section { text-align: center; padding: 80px 60px 100px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; color: #0f172a; }
+  .cta-section p { color: #64748b; font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: box-shadow 0.2s; }
+  .cta-btn:hover { box-shadow: 0 4px 16px rgba(0,128,96,0.3); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: #94a3b8; background: #f1f5f9; border-top: 1px solid #e5e7eb; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Shopify Plus × The Potato King</div>
+  <div class="nav-pills">
+    <a href="#challenges" class="nav-pill">What We Heard</a>
+    <a href="#fit" class="nav-pill">Solution Fit</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Contact Gareth</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Discovery Summary — May 2026</div>
+  <h1>The Potato King × <span>Shopify Plus</span></h1>
+  <p>A summary of our discovery conversation with Aaron, covering your current challenges, what you're looking for, and how Shopify Plus can provide a self-service B2B ordering portal integrated with Microsoft Dynamics 365.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">$19–20M</div><div class="lbl">Revenue</div></div>
+    <div class="hero-stat"><div class="num">1,000+</div><div class="lbl">Products</div></div>
+    <div class="hero-stat"><div class="num">150+</div><div class="lbl">Employees</div></div>
+    <div class="hero-stat"><div class="num">1958</div><div class="lbl">Established</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHAT WE HEARD -->
+<section id="challenges">
+  <div class="label">Discovery Findings</div>
+  <div class="title">What We Heard</div>
+  <div class="sub">Key challenges and needs from our conversation with Aaron.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🕐</div>
+      <h3>After-Hours Ordering Gap</h3>
+      <p>Your grocery customers can't place orders when Potato King is closed. Add-on orders (5 more cases of lettuce) have to wait until morning, or your sales team comes in on Saturdays.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📅</div>
+      <h3>Saturday Staffing Cost</h3>
+      <p>Sales reps come in half-days on Saturdays to take phone orders. A self-service portal eliminates that cost and gives your team their weekends back.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚠️</div>
+      <h3>Previous Portal Failed (Consentio)</h3>
+      <p>Your last B2B portal (Consentio, Spain-based) was dismantled 2 months ago due to excessive downtime and 24-hour support response times. Customers got frustrated.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📞</div>
+      <h3>Phone-Heavy Ordering Process</h3>
+      <p>The vast majority of orders come by phone with lots of back-and-forth ("how do the cherries look today?"). You're not trying to replace that — you want to supplement it for quick add-ons.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💲</div>
+      <h3>Complex Pricing Structure</h3>
+      <p>Multiple price points, customer groups, date-based specials, customer-specific pricing. "Kind of all over the place." Needs to sync from Dynamics 365.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧑‍💻</div>
+      <h3>One-Person IT Team</h3>
+      <p>Aaron manages IT alongside finance and operations. The platform needs to be self-manageable without requiring developer support day-to-day.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW SHOPIFY PLUS FITS -->
+<section id="fit">
+  <div class="label">Platform Capabilities</div>
+  <div class="title">How Shopify Plus Fits</div>
+  <div class="sub">Every requirement mapped to a native Shopify Plus capability — no workarounds, no third-party band-aids.</div>
+
+  <table class="map-table">
+    <thead><tr><th>Requirement</th><th>Shopify Plus</th><th>Details</th></tr></thead>
+    <tbody>
+      <tr><td>Gated B2B login</td><td style="color:var(--green);font-weight:600;">Native</td><td>Only existing customers with credentials can access the portal. No public ordering.</td></tr>
+      <tr><td>Customer-specific pricing</td><td style="color:var(--green);font-weight:600;">Native</td><td>Price lists from Dynamics 365 map to Shopify B2B catalogs per company.</td></tr>
+      <tr><td>Quick add-on ordering</td><td style="color:var(--green);font-weight:600;">Native</td><td>Quick order lists and reorder from previous purchases. Under 60 seconds.</td></tr>
+      <tr><td>Net terms / no payment at checkout</td><td style="color:var(--green);font-weight:600;">Native</td><td>Orders submit as posted sales invoices on existing customer terms. No credit card required.</td></tr>
+      <tr><td>Dynamics 365 integration</td><td style="color:var(--green);font-weight:600;">Native connector</td><td>Bidirectional sync: pricing + inventory from D365 to Shopify, orders from Shopify to D365.</td></tr>
+      <tr><td>Multi-location inventory</td><td style="color:var(--green);font-weight:600;">Native</td><td>Inventory visibility by warehouse location for logged-in customers.</td></tr>
+      <tr><td>Mobile-friendly</td><td style="color:var(--green);font-weight:600;">Native</td><td>Responsive design — customers can order from their phone at 2am or in the produce section.</td></tr>
+      <tr><td>99.99% uptime SLA</td><td style="color:var(--green);font-weight:600;">Included</td><td>North American support team. No more 24-hour response lag from overseas.</td></tr>
+      <tr><td>Self-manageable by small team</td><td style="color:var(--green);font-weight:600;">Built for non-technical users</td><td>Aaron can manage the portal without developer support.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Next Steps</div>
+  <div class="title">Moving Forward</div>
+  <div class="sub">No pressure, no hard timeline. We move at your pace.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Hybrid Discovery + Demo</h4>
+      <p>This week — 20 min deeper discovery into pricing structure, customer segments, and Dynamics setup, followed by 40 min platform demo.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Feedback + Evaluation</h4>
+      <p>Aaron reviews the demo, identifies any gaps or questions, and determines whether to bring in additional stakeholders (Scott).</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Partner Introduction</h4>
+      <p>If the platform fits, we'll introduce an implementation partner to scope the Dynamics integration and storefront build.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Go-Live (When Ready)</h4>
+      <p>"I'd rather take my time and do it right." No hard timeline — we'll move at your pace.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Questions? Let's Talk.</h2>
+  <p>Reach out anytime — happy to answer questions or schedule a follow-up.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Prepared by Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com<br>
+  Confidential — prepared for The Potato King, Inc.
+</div>
+
+</body>
+</html>
