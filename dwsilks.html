@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>D&W Silks × Shopify Plus — Discovery Summary</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #008060; --accent: #008060; --white: #0f172a; --gray-400: #64748b; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: #f8fafc; color: #0f172a; line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 56px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: #0f172a; }
+  .nav-logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+  .nav-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: #64748b; text-decoration: none; transition: all 0.2s; }
+  .nav-pill:hover { color: #0f172a; background: rgba(0,0,0,0.04); }
+  .nav-cta { background: var(--green); color: white; padding: 7px 18px; border-radius: 20px; font-size: 12px; font-weight: 600; text-decoration: none; transition: box-shadow 0.2s; }
+  .nav-cta:hover { box-shadow: 0 2px 8px rgba(0,128,96,0.3); }
+
+  section { padding: 80px 60px 60px; max-width: 1100px; margin: 0 auto; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, #e5e7eb, transparent); max-width: 1100px; margin: 0 auto; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .title { font-size: clamp(26px, 3vw, 38px); font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; color: #0f172a; }
+  .sub { font-size: 15px; color: #64748b; margin-bottom: 36px; line-height: 1.7; }
+
+  .hero { padding: 140px 60px 80px; max-width: 1100px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,128,96,0.07); border: 1px solid rgba(0,128,96,0.2); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(36px, 4.5vw, 52px); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 16px; color: #0f172a; }
+  .hero h1 span { background: linear-gradient(135deg, #00a674, #008060); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 17px; color: #64748b; max-width: 640px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .hero-stat { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 20px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .hero-stat .num { font-size: 26px; font-weight: 900; color: var(--green); line-height: 1; margin-bottom: 4px; }
+  .hero-stat .lbl { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color 0.2s, box-shadow 0.2s; }
+  .card:hover { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .card-icon { font-size: 24px; margin-bottom: 12px; }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #0f172a; }
+  .card p, .card li { font-size: 13px; color: #64748b; line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 16px; position: relative; }
+  .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-size: 12px; }
+
+  .map-table { width: 100%; border-collapse: collapse; }
+  .map-table th { text-align: left; font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 2px solid #e5e7eb; }
+  .map-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid #f1f5f9; color: #64748b; }
+  .map-table td:first-child { color: #0f172a; font-weight: 500; }
+  .map-table tr:hover td { background: rgba(0,128,96,0.03); }
+
+  .price-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .price-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .price-card.hl { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .price-card .price { font-size: 32px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+  .price-card .period { font-size: 12px; color: #64748b; margin-bottom: 16px; }
+  .price-card .desc { font-size: 13px; color: #64748b; line-height: 1.6; }
+  .price-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .step { text-align: center; }
+  .step-num { width: 40px; height: 40px; background: rgba(0,128,96,0.1); border: 2px solid rgba(0,128,96,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--green); margin: 0 auto 14px; }
+  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #0f172a; }
+  .step p { font-size: 12px; color: #64748b; line-height: 1.6; }
+
+  .cta-section { text-align: center; padding: 80px 60px 100px; max-width: 1100px; margin: 0 auto; }
+  .cta-section h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; color: #0f172a; }
+  .cta-section p { color: #64748b; font-size: 15px; margin-bottom: 30px; }
+  .cta-btn { display: inline-block; background: var(--green); color: white; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 700; text-decoration: none; transition: box-shadow 0.2s; }
+  .cta-btn:hover { box-shadow: 0 4px 16px rgba(0,128,96,0.3); }
+
+  .footer { text-align: center; padding: 40px; font-size: 11px; color: #94a3b8; background: #f1f5f9; border-top: 1px solid #e5e7eb; }
+
+  .info-block { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .info-block p { font-size: 13px; color: #64748b; line-height: 1.7; margin-bottom: 16px; }
+  .info-block ul { list-style: none; padding: 0; margin-bottom: 16px; }
+  .info-block ul li { font-size: 13px; color: #64748b; line-height: 1.7; padding: 4px 0 4px 16px; position: relative; }
+  .info-block ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 12px; font-weight: 700; }
+  .info-block .next-note { font-size: 13px; color: var(--green); font-weight: 600; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; } .nav-pills { display: none; }
+    section, .hero { padding-left: 24px; padding-right: 24px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-grid { grid-template-columns: 1fr; }
+    .price-cards { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">S</div> Built for D&amp;W Silks</div>
+  <div class="nav-pills">
+    <a href="#overview" class="nav-pill">Overview</a>
+    <a href="#platform" class="nav-pill">Platform</a>
+    <a href="#b2b" class="nav-pill">B2B</a>
+    <a href="#pricing" class="nav-pill">Pricing</a>
+    <a href="#sage" class="nav-pill">Sage Integration</a>
+    <a href="#partners" class="nav-pill">Partners</a>
+    <a href="#next" class="nav-pill">Next Steps</a>
+  </div>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Let's Connect</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Discovery Summary · May 14, 2026</div>
+  <h1>D&amp;W Silks × <span>Shopify Plus</span></h1>
+  <p>A summary of our introductory conversation with Samantha, covering D&amp;W Silks' current setup, key questions, and how Shopify Plus can power your wholesale business — without needing a developer for every change.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">Est. 1986</div><div class="lbl">Founded</div></div>
+    <div class="hero-stat"><div class="num">2,600+</div><div class="lbl">Products</div></div>
+    <div class="hero-stat"><div class="num">$2,300</div><div class="lbl">/mo Platform</div></div>
+    <div class="hero-stat"><div class="num">0</div><div class="lbl">Downtime</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHAT WE DISCUSSED -->
+<section id="overview">
+  <div class="label">What We Discussed</div>
+  <div class="title">Conversation Summary</div>
+  <div class="sub">Key topics from our introductory call with Samantha — covering migration, self-service editing, wholesale, integrations, and more.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Migration from WordPress</h3>
+      <p>Shopify handles WordPress/WooCommerce migrations regularly. Your site would be built on Shopify in the background while your current site stays live. When ready, we flip the DNS — zero downtime, no interruption to operations.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✨</div>
+      <h3>Click, Not Code</h3>
+      <p>Unlike WordPress where visual changes require a developer (like widening content to full landscape), Shopify's theme editor lets you make design changes yourself — no coding background needed. This eliminates the dependency on your agency for routine updates.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏪</div>
+      <h3>Wholesale B2B Portal</h3>
+      <p>Shopify Plus natively supports gated wholesale portals — dealers apply, get approved, log in, and see your trade-only pricing. General consumers can't access products or pricing. Exactly how D&amp;W Silks operates today, but built into the platform.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Sage ERP Integration</h3>
+      <p>Shopify connects to Sage (all major versions) with pre-built connectors. Inventory, pricing, and item names sync between Sage and your storefront. Orders placed on Shopify flow back into Sage automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <h3>Repzio + Website</h3>
+      <p>Today, your Repzio sales rep tool doesn't communicate with the website. On Shopify Plus, sales reps can place orders on behalf of customers through draft orders — and all orders (web + rep) flow through one system.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💳</div>
+      <h3>Payment Processing</h3>
+      <p>You can keep your current payment processor or switch to Shopify Payments for potentially better rates. There's a small additional fee (0.2%) if using a third-party processor on Plus. We can run a rate comparison to see which saves you more.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SHOPIFY PLUS FOR WHOLESALE -->
+<section id="b2b">
+  <div class="label">Shopify Plus for Wholesale</div>
+  <div class="title">B2B Capabilities</div>
+  <div class="sub">How Shopify Plus maps to every D&amp;W Silks wholesale requirement — natively, without custom development.</div>
+
+  <table class="map-table">
+    <thead><tr><th>Requirement</th><th>Shopify Plus Solution</th></tr></thead>
+    <tbody>
+      <tr><td>Wholesale-only access</td><td>Gated B2B portal. Dealers log in to see products/pricing. Public visitors see nothing.</td></tr>
+      <tr><td>Dealer application</td><td>Company account applications. Dealers apply, you approve, they get access.</td></tr>
+      <tr><td>Customer-specific pricing</td><td>Up to 25+ price lists. Different pricing for different dealer tiers.</td></tr>
+      <tr><td>Minimum order ($500)</td><td>Native order minimums enforced at checkout. No workarounds.</td></tr>
+      <tr><td>Sales rep ordering (Repzio)</td><td>Draft orders + staff permissions. Reps order on behalf of customers.</td></tr>
+      <tr><td>Reordering</td><td>Quick order lists + order history. Dealers reorder in seconds.</td></tr>
+      <tr><td>Trade show orders</td><td>Draft orders created at Las Vegas / High Point markets, fulfilled when ready.</td></tr>
+      <tr><td>Amazon integration</td><td>Shopify Amazon sales channel syncs inventory across both platforms.</td></tr>
+      <tr><td>Payment terms</td><td>Net 30/60/90 built into B2B checkout. No manual invoicing.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="label">Investment</div>
+  <div class="title">Pricing</div>
+  <div class="sub">Shopify Plus platform cost compared to your current WordPress/WooCommerce setup.</div>
+
+  <div class="price-cards">
+    <div class="price-card hl">
+      <h4>Shopify Plus</h4>
+      <div class="price">$2,300</div>
+      <div class="period">/mo · 3-year term</div>
+      <div class="desc">All B2B features included · Hosting, security, PCI compliance · Unlimited staff accounts · Up to 10 stores under one license</div>
+    </div>
+    <div class="price-card">
+      <h4>Current WordPress/WooCommerce</h4>
+      <div class="price">$477</div>
+      <div class="period">/mo + Agency Costs</div>
+      <div class="desc">Requires developer for visual changes · Repzio doesn't sync · Manual wholesale management · Hosting + security managed separately</div>
+    </div>
+    <div class="price-card">
+      <h4>Variable Platform Fee</h4>
+      <div class="price">0.18%</div>
+      <div class="period">only above ~$1.28M/mo GMV</div>
+      <div class="desc">Only applies above ~$1.28M/month in GMV (~$15.3M/yr with Shopify Payments). If D&amp;W Silks is under $12M/yr, the fee is flat $2,300/mo — no variable charges.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SAGE INTEGRATION -->
+<section id="sage">
+  <div class="label">ERP Connectivity</div>
+  <div class="title">Sage Integration</div>
+  <div class="sub">Connecting your ERP to your storefront — automatically.</div>
+
+  <div class="info-block">
+    <p>Shopify connects to all major Sage versions through pre-built connectors. Here's what the integration handles:</p>
+    <ul>
+      <li>Inventory levels sync from Sage → Shopify in real time</li>
+      <li>Product names, descriptions, and pricing pulled from Sage</li>
+      <li>Orders placed on Shopify push back into Sage automatically</li>
+      <li>Multi-location inventory supported (if applicable)</li>
+      <li>No custom development needed for standard data flows</li>
+    </ul>
+    <p class="next-note">Next step: Confirm which Sage version D&amp;W Silks is running so we can recommend the right connector.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RECOMMENDED PARTNERS -->
+<section id="partners">
+  <div class="label">Implementation</div>
+  <div class="title">Recommended Partners</div>
+  <div class="sub">Who builds your store, and what ongoing support looks like.</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h3>Migration Partner</h3>
+      <p>Handles the build: theme design, data migration from WordPress/WooCommerce, Sage integration setup. Typical timeline: 6–12 weeks. Gareth will provide specific recommendations based on your needs.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛠️</div>
+      <h3>Ongoing Support</h3>
+      <p>Unlike WordPress, most Shopify changes don't require a developer. But if you need custom work, Shopify has 4,000+ certified partners. Your current agency may also support Shopify.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <h3>Shopify Plus Support</h3>
+      <p>Included with your license: dedicated launch engineer for onboarding, 24/7 priority support, and Shopify Plus Academy for training.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="label">Next Steps</div>
+  <div class="title">Moving Forward</div>
+  <div class="sub">Four steps to keep the conversation going.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Review This Page</h4>
+      <p>Share with Chris and Sean. Come back with any questions.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Confirm Sage Version</h4>
+      <p>Let us know which Sage version you're running so we can validate the integration path.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Technical Deep Dive</h4>
+      <p>When ready, we'll schedule a follow-up with someone from your team who can discuss pricing structure, Sage setup, and Repzio workflow in more detail.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Partner Introduction</h4>
+      <p>Gareth will recommend 2–3 implementation partners who specialize in B2B wholesale migrations.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section">
+  <h2>Ready to Explore Further?</h2>
+  <p>Share this page with your team. When you're ready for a deeper conversation, we'll bring in the right people.</p>
+  <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
+</div>
+
+<div class="footer">
+  Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com · 778-917-9299
+</div>
+
+</body>
+</html>
