@@ -190,27 +190,111 @@
 <!-- PRICING -->
 <section id="pricing">
   <div class="label">Investment</div>
-  <div class="title">Pricing</div>
-  <div class="sub">Shopify Plus platform cost compared to your current WordPress/WooCommerce setup.</div>
+  <div class="title">Complete Pricing Breakdown</div>
+  <div class="sub">Everything D&amp;W Silks would pay on Shopify Plus — platform fees, transaction fees, and when costs scale.</div>
 
-  <div class="price-cards">
-    <div class="price-card hl">
-      <h4>Shopify Plus</h4>
-      <div class="price">$2,300</div>
-      <div class="period">/mo · 3-year term</div>
-      <div class="desc">All B2B features included · Hosting, security, PCI compliance · Unlimited staff accounts · Up to 10 stores under one license</div>
+  <!-- Platform Fee -->
+  <div style="margin-bottom:24px;">
+    <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:12px;">Platform Fee</div>
+    <div class="price-cards">
+      <div class="price-card hl">
+        <h4>Shopify Plus (3-Year)</h4>
+        <div class="price">$2,300</div>
+        <div class="period">USD / month</div>
+        <div class="desc">Hosting · Security · PCI compliance · SSL · Unlimited staff accounts · B2B wholesale portal · Up to 10 stores under one license</div>
+      </div>
+      <div class="price-card">
+        <h4>Shopify Plus (1-Year)</h4>
+        <div class="price">$2,500</div>
+        <div class="period">USD / month</div>
+        <div class="desc">Same features as 3-year plan. Shorter commitment at a slightly higher rate.</div>
+      </div>
+      <div class="price-card">
+        <h4>Your Current Setup</h4>
+        <div class="price">$477</div>
+        <div class="period">/mo + agency fees</div>
+        <div class="desc">WordPress/WooCommerce · Requires developer for visual changes · Repzio doesn't sync · No native B2B portal · Hosting + security managed separately</div>
+      </div>
     </div>
-    <div class="price-card">
-      <h4>Current WordPress/WooCommerce</h4>
-      <div class="price">$477</div>
-      <div class="period">/mo + Agency Costs</div>
-      <div class="desc">Requires developer for visual changes · Repzio doesn't sync · Manual wholesale management · Hosting + security managed separately</div>
+  </div>
+
+  <!-- Transaction Fees -->
+  <div style="margin-bottom:24px;">
+    <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:12px;">Transaction Fees</div>
+    <div class="info-block">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px;">Using Shopify Payments (recommended)</div>
+          <ul>
+            <li>Online credit card: <strong style="color:#0f172a;">2.25% + 30¢</strong> per transaction</li>
+            <li>In-person (POS): <strong style="color:#0f172a;">2.15% + 0¢</strong> per transaction</li>
+            <li>No additional platform transaction fee</li>
+            <li>Lower VPF rate (0.18%) — higher threshold before variable pricing kicks in</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#64748b;margin-bottom:8px;">Using a Third-Party Processor</div>
+          <ul>
+            <li>Additional platform fee: <strong style="color:#0f172a;">0.20%</strong> per transaction</li>
+            <li>Plus whatever your processor charges directly</li>
+            <li>Example: on a $1,000 order → $2.00 Shopify surcharge on top of processor rate</li>
+            <li>Higher VPF rate (0.25%) — lower threshold before variable pricing kicks in</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="price-card">
-      <h4>Variable Platform Fee</h4>
-      <div class="price">0.18%</div>
-      <div class="period">only above ~$1.28M/mo GMV</div>
-      <div class="desc">Only applies above ~$1.28M/month in GMV (~$15.3M/yr with Shopify Payments). If D&amp;W Silks is under $12M/yr, the fee is flat $2,300/mo — no variable charges.</div>
+  </div>
+
+  <!-- VPF Breakdown -->
+  <div style="margin-bottom:24px;">
+    <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:4px;">Variable Platform Fee (VPF) — When Does the Price Go Above $2,300/mo?</div>
+    <div style="font-size:13px;color:#64748b;margin-bottom:16px;">The VPF only applies when monthly GMV exceeds a threshold. With Shopify Payments, that threshold is ~$15.3M/year.</div>
+    <div class="info-block" style="margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px;">The Formula</div>
+          <p style="font-size:14px;color:#0f172a;font-weight:600;margin-bottom:12px;">Monthly cost = GREATER OF $2,300 OR (Monthly GMV × 0.18%)</p>
+          <p>VPF rate with Shopify Payments: <strong style="color:#0f172a;">0.18%</strong></p>
+          <p>Threshold: $2,300 ÷ 0.0018 = <strong style="color:#0f172a;">$1,277,778/mo</strong></p>
+          <p>= <strong style="color:var(--green);">~$15.3 million per year</strong></p>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:8px;">What This Means for D&amp;W Silks</div>
+          <p>If you're transacting less than ~$15.3M/year through Shopify, your platform fee is a flat <strong style="color:#0f172a;">$2,300/month</strong> with zero variable charges.</p>
+          <p style="margin-top:8px;">Based on our conversation, D&amp;W Silks is comfortably under this threshold — so <strong style="color:var(--green);">no variable fees apply.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <table class="map-table">
+      <thead><tr><th>Annual Revenue</th><th>Monthly GMV</th><th>VPF Calculation</th><th>Monthly Cost</th></tr></thead>
+      <tbody>
+        <tr><td>$5M</td><td>$417K</td><td>$417K × 0.18% = $750 (below $2,300)</td><td style="color:var(--green);font-weight:700;">$2,300 (flat)</td></tr>
+        <tr><td>$8M</td><td>$667K</td><td>$667K × 0.18% = $1,200 (below $2,300)</td><td style="color:var(--green);font-weight:700;">$2,300 (flat)</td></tr>
+        <tr><td>$10M</td><td>$833K</td><td>$833K × 0.18% = $1,500 (below $2,300)</td><td style="color:var(--green);font-weight:700;">$2,300 (flat)</td></tr>
+        <tr><td>$12M</td><td>$1.0M</td><td>$1.0M × 0.18% = $1,800 (below $2,300)</td><td style="color:var(--green);font-weight:700;">$2,300 (flat)</td></tr>
+        <tr><td>$15M</td><td>$1.25M</td><td>$1.25M × 0.18% = $2,250 (below $2,300)</td><td style="color:var(--green);font-weight:700;">$2,300 (flat)</td></tr>
+        <tr><td>$18M</td><td>$1.5M</td><td>$1.5M × 0.18% = $2,700 (above $2,300)</td><td style="font-weight:700;">$2,700 (+$400)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Comparison -->
+  <div>
+    <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:12px;">Compared to Today</div>
+    <div class="price-cards" style="grid-template-columns:1fr 1fr;">
+      <div class="price-card">
+        <h4>Current: WordPress/WooCommerce</h4>
+        <div class="price" style="color:#64748b;">$477/mo</div>
+        <div class="period">+ agency fees for coding changes</div>
+        <div class="desc">Developer required for visual changes · No native B2B · Repzio doesn't sync · Hosting + security + SSL managed separately · Manual wholesale management</div>
+      </div>
+      <div class="price-card hl">
+        <h4>Shopify Plus</h4>
+        <div class="price">$2,300/mo</div>
+        <div class="period">all-inclusive</div>
+        <div class="desc">Self-service editing (reduce/eliminate agency) · Native B2B portal · Sage integration · Hosting, security, PCI, SSL included · Sales rep ordering · 24/7 priority support</div>
+      </div>
     </div>
   </div>
 </section>
