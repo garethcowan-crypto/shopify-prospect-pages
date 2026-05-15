@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>The Potato King × Shopify Plus — Hybrid Discovery + Demo</title>
+<title>The Potato King × Shopify Plus — Demo Follow-Up</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,6 +81,15 @@
   .info-block ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 12px; font-weight: 700; }
   .info-block .next-note { font-size: 13px; color: var(--green); font-weight: 600; }
 
+  .compare-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+  .compare-card { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .compare-card.hl { border-color: rgba(0,128,96,0.4); box-shadow: 0 4px 12px rgba(0,128,96,0.08); }
+  .compare-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+  .compare-card p { font-size: 13px; color: #64748b; line-height: 1.7; }
+
+  .vpf-note { margin-top: 20px; background: rgba(0,128,96,0.05); border: 1px solid rgba(0,128,96,0.15); border-radius: 10px; padding: 16px 20px; font-size: 13px; color: #64748b; line-height: 1.7; }
+  .vpf-note strong { color: #0f172a; }
+
   @media (max-width: 768px) {
     nav { padding: 0 16px; } .nav-pills { display: none; }
     section, .hero { padding-left: 24px; padding-right: 24px; }
@@ -88,6 +97,7 @@
     .card-grid { grid-template-columns: 1fr; }
     .price-cards { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -96,225 +106,189 @@
 <nav>
   <div class="nav-logo"><div class="nav-logo-icon">S</div> Built for The Potato King</div>
   <div class="nav-pills">
-    <a href="#overview" class="nav-pill">Overview</a>
-    <a href="#challenges" class="nav-pill">Challenges</a>
-    <a href="#solution" class="nav-pill">Solution</a>
+    <a href="#summary" class="nav-pill">Summary</a>
+    <a href="#showed" class="nav-pill">What We Showed</a>
+    <a href="#pricing" class="nav-pill">Pricing</a>
     <a href="#dynamics" class="nav-pill">Dynamics 365</a>
-    <a href="#demo" class="nav-pill">Demo</a>
     <a href="#next" class="nav-pill">Next Steps</a>
   </div>
-  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Let's Connect</a>
+  <a href="mailto:gareth.cowan@shopify.com" class="nav-cta">Email Gareth</a>
 </nav>
 
 <div class="hero">
-  <div class="hero-badge">Hybrid Discovery + Demo · May 14, 2026</div>
+  <div class="hero-badge">Demo Follow-Up · May 14, 2026</div>
   <h1>The Potato King × <span>Shopify Plus</span></h1>
-  <p>A summary of our discovery conversation with Aaron Herlitzke, covering The Potato King's current challenges, how Shopify Plus integrates with Microsoft Dynamics 365, and what we'll walk through today.</p>
+  <p>A summary of our demo with Aaron, Kevin, and Brandon — covering the B2B portal, ordering experience, Dynamics 365 integration, and what happens next.</p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="num">Est. 1958</div><div class="lbl">Founded</div></div>
-    <div class="hero-stat"><div class="num">1,000+</div><div class="lbl">Items</div></div>
-    <div class="hero-stat"><div class="num">150+</div><div class="lbl">Employees</div></div>
-    <div class="hero-stat"><div class="num">100+</div><div class="lbl">Trucks</div></div>
+    <div class="hero-stat"><div class="num">$70-80M</div><div class="lbl">Revenue</div></div>
+    <div class="hero-stat"><div class="num">800+</div><div class="lbl">Items Stocked</div></div>
+    <div class="hero-stat"><div class="num">~50</div><div class="lbl">Locations</div></div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- WHAT WE KNOW -->
-<section id="overview">
-  <div class="label">Your Business</div>
-  <div class="title">What We Heard from Aaron</div>
-  <div class="sub">Key takeaways from our initial discovery conversation on May 6.</div>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-icon">🥔</div>
-      <h3>Family-Owned Since 1958</h3>
-      <p>Founded by Joyce and Paul Herlitzke. Now led by Scott (President) and Aaron (VP Finance &amp; Operations). 150+ employees, 100+ tractor-trailers, serving grocery retailers across the Upper Midwest.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📦</div>
-      <h3>Pure B2B Wholesale Produce</h3>
-      <p>1,000+ fresh produce items and complementary grocery products — fruits, vegetables, salad dressings, croutons, and more. Own fleet picks up from West Coast and Northwest, breaks it down, and distributes to grocery stores.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📞</div>
-      <h3>Phone-First Ordering Today</h3>
-      <p>The vast majority of orders come in by phone. Buyers call, discuss product quality ('how do the cherries look today?'), and build orders on the fly. Many won't sit down and retype into a portal — they prefer calling it in.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🌙</div>
-      <h3>After-Hours &amp; Saturday Pain</h3>
-      <p>When Potato King is closed, buyers can't add to their orders. Sales people come in Saturday mornings so customers can call in weekend add-ons. Aaron wants to eliminate this — let buyers log in on their phone and add items after hours.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">❌</div>
-      <h3>Consentio Failed</h3>
-      <p>Previously tried Consentio (Spain-based API for Dynamics). Too much downtime, customers got frustrated, and support was 24 hours away due to time zones. Dismantled two months ago. 'Bad taste in our mouth' — need reliability this time.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">💻</div>
-      <h3>Microsoft Dynamics 365</h3>
-      <p>Everything lives in Dynamics — pricing, customers, invoicing, terms. Aaron needs the portal tightly integrated so orders flow straight into Dynamics as posted sales invoices on the customer's existing payment terms. Not paying at checkout.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- THE CHALLENGE -->
-<section id="challenges">
-  <div class="label">Challenges</div>
-  <div class="title">What We're Solving For</div>
-  <div class="sub">The core problems driving The Potato King's evaluation.</div>
-
-  <table class="map-table">
-    <thead><tr><th>Challenge</th><th>Impact</th></tr></thead>
-    <tbody>
-      <tr><td>No digital ordering channel</td><td>Buyers can't place or modify orders after hours or on weekends. Staff works Saturday mornings to take calls.</td></tr>
-      <tr><td>Consentio failure eroded trust</td><td>Previous platform had excessive downtime and overseas-only support. Customers lost confidence in digital ordering.</td></tr>
-      <tr><td>Phone-dependent ordering</td><td>Orders are called in, creating bottleneck on sales staff. No self-service option for simple add-ons.</td></tr>
-      <tr><td>Complex, dynamic pricing</td><td>Multiple price points per customer group, date-based specials, customer-specific rates. All managed in Dynamics 365.</td></tr>
-      <tr><td>One-person IT team</td><td>Aaron manages IT alongside finance and operations. Solution must be simple to maintain without a dedicated tech team.</td></tr>
-      <tr><td>Slow adoption in the industry</td><td>Grocery buyers are slow to adopt technology. The portal must be extremely simple or they won't use it.</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="divider"></div>
-
-<!-- THE SOLUTION -->
-<section id="solution">
-  <div class="label">Shopify Plus B2B</div>
-  <div class="title">How Shopify Plus Solves This</div>
-  <div class="sub">Native B2B capabilities designed for wholesale distributors — integrated with Microsoft Dynamics 365.</div>
+<section id="summary">
+  <div class="label">DEMO SUMMARY</div>
+  <div class="title">What We Showed You</div>
+  <div class="sub">Key capabilities demonstrated on the call — mapped to The Potato King's specific use case.</div>
 
   <div class="card-grid">
     <div class="card">
       <div class="card-icon">🔐</div>
       <h3>Gated B2B Portal</h3>
-      <p>Existing customers log in with unique credentials. They see only their products, their pricing, and their order history. No public access — wholesale only.</p>
+      <p>Your storefront is completely locked. No products, no pricing visible until a customer logs in. Passwordless two-factor authentication makes it simple for buyers to access — no passwords to remember or write down.</p>
     </div>
     <div class="card">
       <div class="card-icon">💰</div>
       <h3>Customer-Specific Pricing</h3>
-      <p>Every customer group sees their negotiated rates. Specials, date-based pricing, and tier-specific rates — all pulled from Dynamics 365 and displayed at login.</p>
+      <p>Every customer group sees their own contracted pricing, pulled directly from Dynamics. Festival Foods sees their rates, mom-and-pop stores see theirs. Pricing tables sync from Dynamics daily, with the ability to push emergency changes instantly.</p>
     </div>
     <div class="card">
       <div class="card-icon">📱</div>
-      <h3>Mobile After-Hours Ordering</h3>
-      <p>Buyers open their phone at 2am after close, log in, and add 5 cases of lettuce to their next delivery. No phone call needed. No Saturday morning staff required.</p>
+      <h3>After-Hours Mobile Ordering</h3>
+      <p>The core use case: a produce manager at 1am needs 5 more cases of lettuce for tomorrow. They open their phone, log in, add items, and submit. No phone call needed. No Saturday morning staff required. Order ships next day.</p>
     </div>
     <div class="card">
       <div class="card-icon">📋</div>
-      <h3>Net Terms / Invoice Checkout</h3>
-      <p>No credit cards. Orders post as sales invoices on the customer's existing payment terms (Net 30/60/90). Exactly how Dynamics handles it today — just with a self-service frontend.</p>
+      <h3>Quick Order &amp; Reorder</h3>
+      <p>Buyers can search by SKU, use a CSV upload for bulk orders, or hit 'buy again' on previous orders. Since 90% of items are the same order-to-order, reordering takes seconds — just adjust quantities and submit.</p>
     </div>
     <div class="card">
-      <div class="card-icon">⚡</div>
-      <h3>99.99% Uptime SLA</h3>
-      <p>North American support, 24/7, with a dedicated contact on Plus who knows your business. No more waiting 24 hours for a response from Spain.</p>
+      <div class="card-icon">🧾</div>
+      <h3>No Payment at Checkout</h3>
+      <p>'Choose payment method later' — orders flow through as invoices on existing terms (Net 30). No credit card required. Produce managers place orders, the mothership accounting team pays by check once a month. Exactly how you operate today.</p>
     </div>
     <div class="card">
-      <div class="card-icon">🔄</div>
-      <h3>Native Dynamics 365 Connector</h3>
-      <p>Pre-built integration pulls pricing, inventory, and customers from Dynamics. Orders placed on Shopify flow back into Dynamics automatically as posted sales invoices.</p>
+      <div class="card-icon">📊</div>
+      <h3>Inventory Visibility</h3>
+      <p>Real-time inventory from Dynamics. We configured it to allow negative inventory so you never miss a sale — if stock hits zero, orders still go through and alert your team to source more. Customer-facing inventory counts can be hidden.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <h3>Multi-Location Accounts</h3>
+      <p>Super users can switch between multiple store locations within the portal. Permissions control what each user can see and do — a produce manager sees different options than an account administrator.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <h3>Click-Not-Code Admin</h3>
+      <p>Aaron builds it, then hands it off. The admin interface is fully declarative — no coding needed. Products, companies, permissions, and settings are all managed through a visual interface. Bulk import/export via spreadsheet or ERP sync.</p>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- DYNAMICS 365 INTEGRATION -->
+<section id="pricing">
+  <div class="label">INVESTMENT</div>
+  <div class="title">Shopify Plus Pricing — The Potato King</div>
+  <div class="sub">All costs in USD. Straightforward pricing based on your revenue and payment model.</div>
+
+  <div class="price-cards">
+    <div class="price-card hl">
+      <h4>Platform Fee</h4>
+      <div class="price">$2,300/mo</div>
+      <div class="period">3-year term</div>
+      <div class="desc">Covers hosting, security, PCI compliance, SSL, unlimited staff accounts, B2B portal, up to 10 stores. One flat fee.</div>
+    </div>
+    <div class="price-card">
+      <h4>Variable Platform Fee</h4>
+      <div class="price">0.18%</div>
+      <div class="period">of monthly GMV</div>
+      <div class="desc">Applies only when monthly Shopify GMV exceeds ~$1.28M/mo (~$15.3M/yr). You pay the GREATER of $2,300 or 0.18% × monthly GMV.</div>
+    </div>
+    <div class="price-card">
+      <h4>Payment Processing</h4>
+      <div class="price">Optional</div>
+      <div class="period">&nbsp;</div>
+      <div class="desc">If you choose to accept credit cards on the platform: 2.25% + 30¢ per transaction. If no payment processing on Shopify (your current model): $0 processing fees.</div>
+    </div>
+  </div>
+
+  <div class="info-block" style="margin-top: 24px;">
+    <p style="font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 12px;">How Does This Apply to The Potato King?</p>
+    <p>Your revenue is $70-80M, but the key question is: how much will flow through Shopify?</p>
+    <p><strong style="color: #0f172a;">If you start with the snowball approach</strong> (limited catalog, after-hours add-ons only):</p>
+    <ul>
+      <li>Year 1 Shopify GMV estimate: $2-5M</li>
+      <li>Monthly GMV: $167K-$417K</li>
+      <li>VPF check: $417K × 0.18% = $750 → below $2,300 → flat $2,300/mo</li>
+      <li>Annual platform cost: $27,600</li>
+    </ul>
+    <p><strong style="color: #0f172a;">If adoption grows and more volume flows through Shopify:</strong></p>
+    <ul>
+      <li>At $10M/yr ($833K/mo): $833K × 0.18% = $1,500 → still flat $2,300/mo</li>
+      <li>At $15M/yr ($1.25M/mo): $1.25M × 0.18% = $2,250 → still flat $2,300/mo</li>
+      <li>At $20M/yr ($1.67M/mo): $1.67M × 0.18% = $3,006 → VPF applies (+$706/mo)</li>
+    </ul>
+    <p>Since you're not processing payments on Shopify (all check/wire → Dynamics), there are <strong style="color: #0f172a;">zero transaction processing fees</strong> on top of the platform fee.</p>
+  </div>
+
+  <div class="vpf-note">
+    <strong>Important:</strong> The VPF applies to orders that originate in Shopify. We're confirming the exact treatment for orders where payment is collected outside the platform (check/wire into Dynamics). Gareth will follow up with specifics.
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <h4>Consentio (Previous)</h4>
+      <p>Failed platform. Spain-based support. 24-hour response lag. Downtime frustrated customers. Limited follow-through on promises.</p>
+    </div>
+    <div class="compare-card hl">
+      <h4>Shopify Plus</h4>
+      <p>$2,300/mo (flat at your projected volume). 99.99% uptime SLA. North American 24/7 support. Dedicated launch engineer. Native Dynamics 365 connector. No Spain-based time zone issues.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="dynamics">
-  <div class="label">ERP Integration</div>
+  <div class="label">ERP INTEGRATION</div>
   <div class="title">Shopify + Microsoft Dynamics 365</div>
-  <div class="sub">A native connection — not a custom API from Spain.</div>
+  <div class="sub">Your source of truth stays in Dynamics. Shopify surfaces it to your buyers.</div>
 
   <div class="info-block">
-    <p>Shopify has a pre-built connector for Microsoft Dynamics 365 — one of the most common ERPs in the wholesale distribution space. Here's how data flows:</p>
+    <p>Shopify has a native, pre-built connector for Microsoft Dynamics 365. Aaron noted that Dynamics already comes with Shopify compatibility built in — reducing concerns about API reliability after the Consentio experience.</p>
     <ul>
-      <li>Pricing and customer groups sync from Dynamics → Shopify automatically</li>
-      <li>Inventory levels update in real time across your product catalog</li>
-      <li>Orders placed on Shopify push back into Dynamics as posted sales invoices</li>
-      <li>Customer payment terms (Net 30/60/90) are respected — no checkout payment required</li>
-      <li>Product catalog and item names pulled directly from Dynamics</li>
-      <li>Changes in Dynamics reflect in Shopify without manual intervention</li>
+      <li>Customer pricing tables sync from Dynamics → Shopify (daily sync + manual push for emergencies)</li>
+      <li>Inventory levels update in real time — negative inventory supported</li>
+      <li>Orders placed on Shopify flow back into Dynamics as new invoices</li>
+      <li>Product catalog (800+ stocked items) imported via ERP sync or spreadsheet</li>
+      <li>Product images stored in Shopify (Aaron has the image database from Consentio)</li>
+      <li>No separate database to maintain — Dynamics remains the single source of truth</li>
     </ul>
-    <p class="next-note">Unlike Consentio, this is a supported, maintained connector — not a custom API built by a team in another time zone.</p>
+    <p class="next-note">Aaron's Dynamics reseller (Infotech) may be able to support the Shopify integration. If Infotech doesn't have a Shopify practice, Gareth will recommend an implementation partner.</p>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- TODAY'S DEMO -->
-<section id="demo">
-  <div class="label">What We'll Cover Today</div>
-  <div class="title">Demo Priorities</div>
-  <div class="sub">Based on what Aaron shared, here's what we'll walk through — prioritized by what matters most.</div>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-icon">1</div>
-      <h3>Quick Order / Simple Reorder</h3>
-      <p>The buyer experience has to be dead simple. We'll show how a grocery buyer logs in, finds products, and places an add-on order in under 60 seconds. If it's not easier than calling, they won't use it.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">2</div>
-      <h3>Customer-Specific Pricing</h3>
-      <p>How different customers see different prices — pulled from Dynamics. No manual price management in Shopify.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">3</div>
-      <h3>Mobile Ordering Experience</h3>
-      <p>The after-hours use case. We'll show exactly what it looks like on a phone at 2am — log in, add 5 cases of lettuce, submit.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">4</div>
-      <h3>Net Terms / PO Checkout</h3>
-      <p>How orders post as invoices on existing terms. No credit card required. Matches how Dynamics handles billing today.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">5</div>
-      <h3>Admin Simplicity</h3>
-      <p>Aaron is the IT team. We'll show how easy it is to manage without a developer — click, not code.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">6</div>
-      <h3>Dynamics 365 Integration</h3>
-      <p>How the connector works. What syncs, how often, and what happens when something changes.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- NEXT STEPS -->
 <section id="next">
-  <div class="label">Next Steps</div>
-  <div class="title">Moving Forward</div>
-  <div class="sub">Four steps from here.</div>
+  <div class="label">WHAT HAPPENS NEXT</div>
+  <div class="title">Next Steps</div>
+  <div class="sub">Aaron is reviewing materials with his team. Follow-up scheduled for first week of June.</div>
 
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
-      <h4>Today's Demo</h4>
-      <p>Walk through the platform. Validate it can handle your use case. Ask every question.</p>
+      <h4>Review Materials</h4>
+      <p>Aaron reviews the demo recording, this page, and the pricing breakdown with his cousins and team. Determine if Shopify is the right fit.</p>
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <h4>Aaron's Feedback</h4>
-      <p>After seeing the demo — does this solve the problem? What's missing? What would you need to see to bring in other stakeholders?</p>
+      <h4>Confirm with Infotech</h4>
+      <p>Check if Infotech (Dynamics reseller) has a Shopify practice. If yes, they could handle the integration. If not, Gareth will introduce an implementation partner.</p>
     </div>
     <div class="step">
       <div class="step-num">3</div>
-      <h4>Stakeholder Demo</h4>
-      <p>If it looks like a fit, we'll schedule a refined demo for Scott and anyone else who needs to see it.</p>
+      <h4>Follow-Up Call (June)</h4>
+      <p>Scheduled for first week of June. Discuss team feedback, answer remaining questions, and determine if we proceed to partner scoping.</p>
     </div>
     <div class="step">
       <div class="step-num">4</div>
-      <h4>Partner + Implementation</h4>
-      <p>Gareth introduces an implementation partner to scope the build — theme, Dynamics integration, data migration, and training.</p>
+      <h4>Partner Scoping &amp; Pilot</h4>
+      <p>If it's a go — partner provides a scope of work covering timeline, integration, data migration, and total cost of ownership. Start with the snowball: limited catalog (salads, bagged veggies), then expand.</p>
     </div>
   </div>
 </section>
@@ -322,13 +296,13 @@
 <div class="divider"></div>
 
 <div class="cta-section">
-  <h2>Questions After the Demo?</h2>
-  <p>Reach out anytime. We'd rather take our time and do it right than rush it.</p>
+  <h2>Questions Before June?</h2>
+  <p>Reach out anytime. We'd rather take our time and do it right.</p>
   <a href="mailto:gareth.cowan@shopify.com" class="cta-btn">Email Gareth →</a>
 </div>
 
 <div class="footer">
-  Gareth Cowan · Shopify Plus · B2B Acquisition · gareth.cowan@shopify.com · 778-917-9299
+  Gareth Cowan · Kevin Zaw · Brandon Anderson · Shopify Plus · gareth.cowan@shopify.com · 778-917-9299
 </div>
 
 </body>
